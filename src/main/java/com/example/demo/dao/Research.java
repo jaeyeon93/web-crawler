@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.domain.SamSung;
+import com.example.demo.domain.Stock;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -25,16 +26,19 @@ public class Research {
         driver.findElement(By.id("daumBtnSearch")).click();
     }
 
-    public void searchDetail(String keyworld) {
-        WebElement element = driver.findElement(By.cssSelector("a[title='삼성전자']"));
+    public void searchDetail(String keyword) {
+        // 디테일 종목 찾기
+        WebElement element = driver.findElement(By.cssSelector("a[title="+keyword+"]"));
         String detailUrl  = element.getAttribute("href");
         driver.get(detailUrl);
     }
 
-    public void make() {
+    public Stock make() {
         String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
         System.out.println("price : " + price);
-        String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
-        String profit = ;
+        String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText().substring(l);
+        String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[7]")).getText();
+        return new SamSung(yearProfit, totalCost,price);
     }
+
 }

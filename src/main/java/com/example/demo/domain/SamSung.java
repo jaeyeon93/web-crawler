@@ -1,23 +1,29 @@
 package com.example.demo.domain;
 
 public class SamSung implements Stock {
-    private int profit;
-    private int totalCost;
-    private int price;
+    private String profit;
+    private String totalCost;
+    private String price;
 
     public SamSung() {}
 
+    public SamSung(String profit, String totalCost, String price) {
+        this.profit = profit;
+        this.totalCost = totalCost;
+        this.price = price;
+    }
+
     @Override
-    public int getProfit() {
+    public String getProfit() {
         return profit;
     }
 
     @Override
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public int getTotalCost() {
+    public String getTotalCost() {
         return totalCost;
     }
 
