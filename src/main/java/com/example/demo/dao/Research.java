@@ -1,7 +1,9 @@
 package com.example.demo.dao;
 
+import com.example.demo.domain.SamSung;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -24,10 +26,15 @@ public class Research {
     }
 
     public void searchDetail(String keyworld) {
-//        System.out.println(driver.getPageSource());
-        List<WebElement> list = driver.findElements(By.tagName("a"));
-        for (WebElement w : list)
-            System.out.println(w.getAttribute("href"));
+        WebElement element = driver.findElement(By.cssSelector("a[title='삼성전자']"));
+        String detailUrl  = element.getAttribute("href");
+        driver.get(detailUrl);
+    }
 
+    public void make() {
+        String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
+        System.out.println("price : " + price);
+        String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
+        String profit = ;
     }
 }

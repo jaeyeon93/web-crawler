@@ -24,5 +24,6 @@ public class Run {
         Research research = new Research();
         research.search(searchWord);
         research.searchDetail(searchWord);
+        research.make();
     }
 }
