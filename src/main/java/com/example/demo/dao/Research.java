@@ -46,4 +46,8 @@ public class Research {
     public String getStockName() {
         return stockName;
     }
+
+    public WebDriver getDriver() {
+        return driver;
+    }
 }
