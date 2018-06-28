@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import com.example.demo.domain.JsoupSearch;
 import com.example.demo.domain.Stock;
 import org.jsoup.Jsoup;
 import org.openqa.selenium.*;
@@ -10,10 +11,10 @@ import org.springframework.stereotype.Service;
 public class Research {
     private WebDriver driver;
     private String stockName;
-
+    private JsoupSearch jsoupSearch;
     public Research() {};
 
-    public Research(String stockName) {
+    public Research(String stockName, JsoupSearch jsoupSearch) {
         this.stockName = stockName;
         // 시작 url 및 주식 메인페이지
         System.setProperty("webdriver.chrome.driver", "/Users/jaeyeonkim/Desktop/web-crawler/src/main/java/com/example/demo/chromedriver");
