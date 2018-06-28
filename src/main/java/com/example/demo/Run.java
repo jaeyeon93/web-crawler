@@ -11,10 +11,10 @@ import java.io.IOException;
 
 public class Run {
     public static void main(String[] args) throws IOException {
-        String searchWord = "삼성전자";
-        Research research = new Research();
+        String searchWord = "셀트리온";
+        Research research = new Research(searchWord);
         research.search(searchWord);
-        research.searchDetail(searchWord);
+        research.searchDetail();
         Stock samsung = research.make();
         System.out.println(samsung.toString());
     }
