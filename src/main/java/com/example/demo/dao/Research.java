@@ -1,12 +1,17 @@
 package com.example.demo.dao;
 
 import com.example.demo.domain.Stock;
+import org.jsoup.Jsoup;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.stereotype.Service;
 
+@Service
 public class Research {
     private WebDriver driver;
     private String stockName;
+
+    public Research() {};
 
     public Research(String stockName) {
         this.stockName = stockName;
