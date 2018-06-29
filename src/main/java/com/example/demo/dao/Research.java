@@ -4,6 +4,7 @@ import com.example.demo.domain.JsoupSearch;
 import com.example.demo.domain.Stock;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,46 +17,33 @@ public class Research {
     private String stockName;
     private JsoupSearch jsoupSearch;
 
-    public Research() {
-        logger.info("생성자1");
-        System.setProperty("webdriver.chrome.driver", "/Users/jaeyeonkim/Desktop/web-crawler/src/main/java/com/example/demo/chromedriver");
-        driver = new ChromeDriver();
-        String startUrl = "http://finance.daum.net/";
-        driver.get(startUrl);
-    }
+    public Research() {}
 
-    public Research(String stockName, JsoupSearch jsoupSearch) {
-        logger.info("생성자2");
+    public Research(String stockName) {
         this.stockName = stockName;
-        // 시작 url 및 주식 메인페이지
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
         System.setProperty("webdriver.chrome.driver", "/Users/jaeyeonkim/Desktop/web-crawler/src/main/java/com/example/demo/chromedriver");
+        driver = new ChromeDriver(options);
         String startUrl = "http://finance.daum.net/";
         driver.get(startUrl);
     }
 
-    public void search(String stockName) {
-        // serach page
-        driver.findElement(By.id("name")).sendKeys(stockName);
+    public void search() {
+        driver.findElement(By.id("name")).sendKeys(getStockName());
         driver.findElement(By.id("daumBtnSearch")).click();
-        // 성공
-    }
-
-    public void searchDetail(String stockName) {
         // 디테일 종목 찾기
-        WebElement element = driver.findElement(By.cssSelector("a[title="+stockName+"]"));
-        logger.info(element.getAttribute("a"));
-        logger.info(element.getAttribute("href"));
+        WebElement element = driver.findElement(By.cssSelector("a[title="+getStockName()+"]"));
         String detailUrl  = element.getAttribute("href");
         driver.get(detailUrl);
     }
 
-    public Stock make(String stockName) {
+    public Stock make() {
         String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
         System.out.println("price : " + price);
         String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
         String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[7]")).getText();
-        return new Stock(stockName, price, yearProfit, totalCost);
+        return new Stock(getStockName(), price, yearProfit, totalCost);
     }
 
     public String getStockName() {

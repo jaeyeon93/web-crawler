@@ -29,11 +29,7 @@ public class StockController {
 
     @PostMapping("")
     public String research(String stockName) {
-        research.search(stockName);
-        research.searchDetail(stockName);
-        Stock stock = research.make(stockName);
-        logger.info("stock info : {}", stock.toString());
-        stockService.add(stock);
+        stockService.add(stockName);
         return "redirect:/stock";
     }
 
@@ -42,5 +38,4 @@ public class StockController {
         model.addAttribute("stock", stockService.findAll());
         return "/index3";
     }
-
 }

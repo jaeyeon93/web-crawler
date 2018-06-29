@@ -26,5 +26,4 @@ public class JsoupSearch {
     public void getHtml() throws Exception {
         logger.info(daum.html());
     }
-
 }
