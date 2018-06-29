@@ -18,6 +18,6 @@ public class HomeController {
     @GetMapping("/show")
     public String second() {
         logger.info("index2 file load");
-        return "/index2";
+        return "/index3";
     }
 }

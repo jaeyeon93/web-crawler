@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,15 +23,25 @@ public class StockController {
     @Resource(name = "research")
     private Research research;
 
+    @Resource(name = "stock")
+    private Stock stock;
+
     @PostMapping("")
     public String research(String stockName, Model model) {
-        logger.info("post method called : {}", stockName);
         logger.info("research info : {}", research.toString());
         research.search(stockName);
         research.searchDetail(stockName);
-        Stock stock = research.make();
+        Stock stock = research.make(stockName);
+        logger.info("stock info : {}", stock.toString());
+        return "redirect:/stock";
+    }
+
+    @GetMapping("")
+    public String showInfo(Model model) {
+        logger.info("showinfo stock : {}");
+        logger.info("showInfo method called");
         model.addAttribute("stock", stock);
-        return "redirect:/show";
+        return "/index3";
     }
 
 }

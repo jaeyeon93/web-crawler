@@ -36,8 +36,6 @@ public class Research {
 
     public void search(String stockName) {
         // serach page
-        logger.info("stockName : {}", getStockName());
-        logger.info("stockName : {}", stockName);
         driver.findElement(By.id("name")).sendKeys(stockName);
         driver.findElement(By.id("daumBtnSearch")).click();
         // 성공
@@ -45,21 +43,19 @@ public class Research {
 
     public void searchDetail(String stockName) {
         // 디테일 종목 찾기
-        logger.info("stockName : {}", getStockName());
         WebElement element = driver.findElement(By.cssSelector("a[title="+stockName+"]"));
         logger.info(element.getAttribute("a"));
         logger.info(element.getAttribute("href"));
         String detailUrl  = element.getAttribute("href");
-        logger.info("detailUrl is {}", detailUrl);
         driver.get(detailUrl);
     }
 
-    public Stock make() {
+    public Stock make(String stockName) {
         String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
         System.out.println("price : " + price);
         String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
         String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[7]")).getText();
-        return new Stock(getStockName(), price, yearProfit, totalCost);
+        return new Stock(stockName, price, yearProfit, totalCost);
     }
 
     public String getStockName() {

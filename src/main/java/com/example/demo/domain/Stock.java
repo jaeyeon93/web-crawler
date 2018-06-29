@@ -1,12 +1,30 @@
 package com.example.demo.domain;
 
-public class Stock {
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity
+public class Stock extends AbstractEntity {
+
+    @Column(unique = true)
     private String name;
+
+    @Column
     private String price;
+
+    @Column
     private String profit;
+
+    @Column
     private String totalCost;
 
+    public Stock() {}
+
     public Stock(String name, String price, String profit, String totalCost) {
+        super();
         this.name = name;
         this.price = price;
         this.profit = profit;
