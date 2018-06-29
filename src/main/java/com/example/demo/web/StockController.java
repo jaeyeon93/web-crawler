@@ -25,9 +25,9 @@ public class StockController {
     @PostMapping("")
     public String research(String stockName, Model model) {
         logger.info("post method called : {}", stockName);
-        research.getDriver().get("http://finance.daum.net/");
+        logger.info("research info : {}", research.toString());
         research.search(stockName);
-        research.searchDetail();
+        research.searchDetail(stockName);
         Stock stock = research.make();
         model.addAttribute("stock", stock);
         return "redirect:/show";
