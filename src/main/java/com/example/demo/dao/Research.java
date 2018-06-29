@@ -5,20 +5,25 @@ import com.example.demo.domain.Stock;
 import org.jsoup.Jsoup;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class Research {
+    public static final Logger logger = LoggerFactory.getLogger(Research.class);
     private WebDriver driver;
     private String stockName;
     private JsoupSearch jsoupSearch;
+
     public Research() {};
 
     public Research(String stockName, JsoupSearch jsoupSearch) {
         this.stockName = stockName;
         // 시작 url 및 주식 메인페이지
-        System.setProperty("webdriver.chrome.driver", "/Users/jaeyeonkim/Desktop/web-crawler/src/main/java/com/example/demo/chromedriver");
         driver = new ChromeDriver();
+        System.setProperty("webdriver.chrome.driver", "/Users/jaeyeonkim/Desktop/web-crawler/src/main/java/com/example/demo/chromedriver");
         String startUrl = "http://finance.daum.net/";
         driver.get(startUrl);
     }
@@ -49,6 +54,7 @@ public class Research {
     }
 
     public WebDriver getDriver() {
+        logger.info("getDriver method called, driver : {}", getDriver().toString());
         return driver;
     }
 }

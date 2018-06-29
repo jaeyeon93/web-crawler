@@ -14,4 +14,10 @@ public class HomeController {
         logger.info("index method called");
         return "/index";
     }
+
+    @GetMapping("/show")
+    public String second() {
+        logger.info("index2 file load");
+        return "/index2";
+    }
 }
