@@ -2,6 +2,7 @@ package com.example.demo.web;
 
 import com.example.demo.dao.Research;
 import com.example.demo.domain.Stock;
+import com.example.demo.service.StockService;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
@@ -23,24 +24,22 @@ public class StockController {
     @Resource(name = "research")
     private Research research;
 
-    @Resource(name = "stock")
-    private Stock stock;
+    @Resource(name = "stockService")
+    private StockService stockService;
 
     @PostMapping("")
-    public String research(String stockName, Model model) {
-        logger.info("research info : {}", research.toString());
+    public String research(String stockName) {
         research.search(stockName);
         research.searchDetail(stockName);
         Stock stock = research.make(stockName);
         logger.info("stock info : {}", stock.toString());
+        stockService.add(stock);
         return "redirect:/stock";
     }
 
     @GetMapping("")
     public String showInfo(Model model) {
-        logger.info("showinfo stock : {}");
-        logger.info("showInfo method called");
-        model.addAttribute("stock", stock);
+        model.addAttribute("stock", stockService.findAll());
         return "/index3";
     }
 
