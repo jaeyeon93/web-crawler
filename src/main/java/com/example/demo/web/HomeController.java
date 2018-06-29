@@ -18,4 +18,9 @@ public class HomeController {
     public String second() {
         return "/index3";
     }
+
+    @GetMapping("/base")
+    public String base() {
+        return "/index2";
+    }
 }
