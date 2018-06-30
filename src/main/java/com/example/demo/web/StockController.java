@@ -28,7 +28,7 @@ public class StockController {
     private StockService stockService;
 
     @PostMapping("")
-    public String research(String stockName) {
+    public String research(String stockName) throws Exception {
         stockService.add(stockName);
         return "redirect:/stock";
     }

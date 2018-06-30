@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.Research;
+import com.example.demo.domain.JsoupSearch;
 import com.example.demo.domain.Stock;
 import com.example.demo.domain.StockRepository;
 import org.slf4j.Logger;
@@ -30,9 +31,11 @@ public class StockService {
         return stockRepository.findByName(name);
     }
 
-    public Stock add(String stockName) {
+    public Stock add(String stockName) throws Exception {
         Research research = new Research(stockName);
-        research.search();
+//        research.search();
+        JsoupSearch jsoupSearch = new JsoupSearch(research);
+        jsoupSearch.make();
         return stockRepository.save(research.make());
     }
 
