@@ -1,5 +1,7 @@
 package com.example.demo.domain;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +10,7 @@ import javax.persistence.Entity;
 
 @Entity
 public class Stock extends AbstractEntity {
+    public static final Logger logger = LoggerFactory.getLogger(Stock.class);
 
     @Column(unique = true)
     private String name;
@@ -29,6 +32,7 @@ public class Stock extends AbstractEntity {
         this.price = price;
         this.profit = profit;
         this.totalCost = totalCost;
+        logger.info("stock 생성 : {}", toString());
     }
 
     public String getName() {
