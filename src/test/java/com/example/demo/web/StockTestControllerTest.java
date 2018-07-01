@@ -2,7 +2,7 @@ package com.example.demo.web;
 
 import org.junit.Test;
 
-public class StockControllerTest {
+public class StockTestControllerTest {
     @Test
     public void get() {
 
