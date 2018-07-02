@@ -44,7 +44,7 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
     }
 
     public Stock(long id, String name, String price, String profit, String totalCost) {
-        super();
+        super(id);
         this.name = name;
         this.price = price;
         this.profit = profit;
@@ -92,8 +92,7 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
     @Override
     public String toString() {
         return "Stock{" +
-                "id='" + getId() + '\'' +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", price='" + price + '\'' +
                 ", profit='" + profit + '\'' +
                 ", totalCost='" + totalCost + '\'' +

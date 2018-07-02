@@ -26,15 +26,15 @@ public class StockAcceptanceTest extends AcceptanceTest {
         assertThat(response.getStatusCode(), is(HttpStatus.FOUND));
     }
 
-    @Test
-    public void 여러개크롤링() throws Exception {
-        HttpEntity<MultiValueMap<String, Object>> request = HtmlFormDataBuilder.urlEncodeForm()
-                .addParameter("stockName", "현대차,삼성전기,기아차,카카오").build();
-        logger.info("request : {}", request.getBody());
-        ResponseEntity<String> response = template().postForEntity("/stock", request, String.class);
-        logger.info("response : {}", request.getBody());
-        assertThat(response.getStatusCode(), is(HttpStatus.FOUND));
-    }
+//    @Test
+//    public void 여러개크롤링() throws Exception {
+//        HttpEntity<MultiValueMap<String, Object>> request = HtmlFormDataBuilder.urlEncodeForm()
+//                .addParameter("stockName", "현대차,삼성전기,기아차,카카오").build();
+//        logger.info("request : {}", request.getBody());
+//        ResponseEntity<String> response = template().postForEntity("/stock", request, String.class);
+//        logger.info("response : {}", request.getBody());
+//        assertThat(response.getStatusCode(), is(HttpStatus.FOUND));
+//    }
 
     @Test
     public void showStock() throws Exception {

@@ -20,31 +20,32 @@ import java.util.List;
 public class ApiStockController {
     public static final Logger logger = LoggerFactory.getLogger(ApiStockController.class);
     private Stock stock;
-    private List<Stock> stocks = new ArrayList<>();
-    private List<ResponseEntity<Void>> responseEntities = new ArrayList<>();
+//    private List<Stock> stocks = new ArrayList<>();
+//    private List<ResponseEntity<Void>> responseEntities = new ArrayList<>();
 
     @Resource(name = "stockService")
     private StockService stockService;
 
-//    @PostMapping("")
-//    public ResponseEntity<Void> create(@Valid @RequestBody String stockName) throws Exception {
-//        stock = stockService.add(stockName);
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setLocation(URI.create("/api/stock/" + stock.getId()));
-//        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-//    }
-
     @PostMapping("")
-    public List<ResponseEntity<Void>> create(@Valid @RequestBody String stockName) throws Exception {
-        stocks = stockService.add(stockName);
+    public ResponseEntity<Void> create(@Valid @RequestBody String stockName) throws Exception {
+        stock = stockService.add(stockName);
         HttpHeaders headers = new HttpHeaders();
-        for (Stock stock : stocks) {
-            headers.setLocation(URI.create("/api/stock/" + stock.getId()));
-            logger.info("path : {}", headers.getLocation().getPath());
-            responseEntities.add(new ResponseEntity<Void>(headers, HttpStatus.CREATED));
-        }
-        return responseEntities;
+        headers.setLocation(URI.create("/api/stock/" + stock.getId()));
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
+
+//    @PostMapping("")
+//    public List<ResponseEntity<Void>> create(@Valid @RequestBody String stockName) throws Exception {
+//        stocks = stockService.add(stockName);
+//        logger.info("stocks : {}", getStocks());
+//        HttpHeaders headers = new HttpHeaders();
+//        for (Stock stock : stocks) {
+//            headers.setLocation(URI.create("/api/stock/" + stock.getId()));
+//            logger.info("path : {}", headers.getLocation().getPath());
+//            responseEntities.add(new ResponseEntity<Void>(headers, HttpStatus.CREATED));
+//        }
+//        return responseEntities;
+//    }
 
     @GetMapping("/list")
     public List<Stock> list() {
@@ -56,7 +57,16 @@ public class ApiStockController {
         return stockService.findById(id);
     }
 
-    public List<ResponseEntity<Void>> getResponseEntities() {
-        return responseEntities;
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable long id) throws Exception {
+        stockService.delete(id);
     }
+
+//    public List<ResponseEntity<Void>> getResponseEntities() {
+//        return responseEntities;
+//    }
+//
+//    public List<Stock> getStocks() {
+//        return stocks;
+//    }
 }

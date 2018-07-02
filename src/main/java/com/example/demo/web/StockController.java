@@ -32,14 +32,14 @@ public class StockController {
     }
 
     @GetMapping("")
-    public String showInfo(Model model) {
+    public String list(Model model) {
         model.addAttribute("stock", stockService.findAll());
-        return "/stock/showInfo";
+        return "/stock/list";
     }
 
     @GetMapping("/{id}")
     public String oneStockInfo(@PathVariable long id, Model model) {
         model.addAttribute("stock", stockService.findById(id));
-        return "/stock/showInfo";
+        return "/stock/list";
     }
 }

@@ -24,10 +24,10 @@ public class ApiStockAcceptanceTest extends AcceptanceTest {
         assertThat(stock.getName(), is("삼성전기"));
     }
 
-    @Test
-    public void 여러개() throws Exception {
-        String path = createResource("/api/stock", "삼성전기,신세계,호텔신라");
-    }
+//    @Test
+//    public void 여러개() throws Exception {
+//        String path = createResource("/api/stock", "삼성전기,신세계,호텔신라");
+//    }
 
     @Test
     public void listTest() throws Exception {
