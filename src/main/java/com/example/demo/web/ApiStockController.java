@@ -27,7 +27,7 @@ public class ApiStockController {
     public ResponseEntity<Void> create(@Valid @RequestBody String stockName) throws Exception {
         stock = stockService.add(stockName);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create("/api/stock" + stock.getId()));
+        headers.setLocation(URI.create("/api/stock/" + stock.getId()));
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 

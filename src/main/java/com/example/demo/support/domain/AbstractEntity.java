@@ -11,7 +11,7 @@ import java.util.Objects;
 @EntityListeners(AuditingEntityListener.class)
 public class AbstractEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     public AbstractEntity() {}
@@ -24,6 +24,10 @@ public class AbstractEntity {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -34,7 +38,6 @@ public class AbstractEntity {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id);
     }
 

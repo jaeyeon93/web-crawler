@@ -36,25 +36,20 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
     }
 
     public Stock(String name, String price, String profit, String totalCost) {
-        this(0L, name, price, profit, totalCost);
-        logger.info("id = 0으로 설정한 stock객체생성");
-    }
-
-//    public Stock(String name, String price, String profit, String totalCost) {
-//        this.name = name;
-//        this.price = price;
-//        this.profit = profit;
-//        this.totalCost = totalCost;
-//        logger.info("stock 생성 : {}", toString());
-//    }
-
-    public Stock(long id, String name, String price, String profit, String totalCost) {
-        super(id);
         this.name = name;
         this.price = price;
         this.profit = profit;
         this.totalCost = totalCost;
-        logger.info("stock 생성 : {}", toString());
+        logger.info("stock 생성1 : {}", toString());
+    }
+
+    public Stock(long id, String name, String price, String profit, String totalCost) {
+        super();
+        this.name = name;
+        this.price = price;
+        this.profit = profit;
+        this.totalCost = totalCost;
+        logger.info("stock 생성2 : {}", toString());
     }
 
     public String getName() {
@@ -73,6 +68,22 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
         return totalCost;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public void setProfit(String profit) {
+        this.profit = profit;
+    }
+
+    public void setTotalCost(String totalCost) {
+        this.totalCost = totalCost;
+    }
+
     @Override
     public String generateUrl() {
         return String.format("/stock/%d", getId());
@@ -81,8 +92,8 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
     @Override
     public String toString() {
         return "Stock{" +
-                "name='" + name + '\'' +
-                ", id='" + getId() + '\'' +
+                "id='" + getId() + '\'' +
+                ", name='" + name + '\'' +
                 ", price='" + price + '\'' +
                 ", profit='" + profit + '\'' +
                 ", totalCost='" + totalCost + '\'' +
