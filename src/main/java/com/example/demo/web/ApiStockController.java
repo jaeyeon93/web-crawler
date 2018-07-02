@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,16 +20,30 @@ import java.util.List;
 public class ApiStockController {
     public static final Logger logger = LoggerFactory.getLogger(ApiStockController.class);
     private Stock stock;
+    private List<Stock> stocks = new ArrayList<>();
+    private List<ResponseEntity<Void>> responseEntities = new ArrayList<>();
 
     @Resource(name = "stockService")
     private StockService stockService;
 
+//    @PostMapping("")
+//    public ResponseEntity<Void> create(@Valid @RequestBody String stockName) throws Exception {
+//        stock = stockService.add(stockName);
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setLocation(URI.create("/api/stock/" + stock.getId()));
+//        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+//    }
+
     @PostMapping("")
-    public ResponseEntity<Void> create(@Valid @RequestBody String stockName) throws Exception {
-        stock = stockService.add(stockName);
+    public List<ResponseEntity<Void>> create(@Valid @RequestBody String stockName) throws Exception {
+        stocks = stockService.add(stockName);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create("/api/stock/" + stock.getId()));
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+        for (Stock stock : stocks) {
+            headers.setLocation(URI.create("/api/stock/" + stock.getId()));
+            logger.info("path : {}", headers.getLocation().getPath());
+            responseEntities.add(new ResponseEntity<Void>(headers, HttpStatus.CREATED));
+        }
+        return responseEntities;
     }
 
     @GetMapping("/list")
@@ -39,5 +54,9 @@ public class ApiStockController {
     @GetMapping("/{id}")
     public Stock show(@PathVariable long id) {
         return stockService.findById(id);
+    }
+
+    public List<ResponseEntity<Void>> getResponseEntities() {
+        return responseEntities;
     }
 }
