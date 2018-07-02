@@ -14,18 +14,12 @@ import static org.junit.Assert.*;
 public class ApiStockAcceptanceTest extends AcceptanceTest {
     private Stock stock;
     public static final Logger logger = LoggerFactory.getLogger(ApiStockAcceptanceTest.class);
-//    @Before
-//    public void setUp() {
-//        stock = new Stock("삼성전자", "46,650", "536,450", "2,994,615억");
-//    }
 
     @Test
     public void create() throws Exception {
-//        stock = new Stock("삼성전자", "46,650", "536,450", "2,994,615억");
-        String path = createResource("/api/stock", "삼성전자");
-        logger.info("StockName on create method : {}", stock.getName());
-        Stock stock2 = getResource(path, Stock.class);
-        assertThat(getResource(path, Stock.class), is(stock2));
+        String path = createResource("/api/stock", "대한항공");
+        stock = getResource(path, Stock.class);
+        assertThat(stock.getName(), is("대한항공"));
     }
 
     @Test

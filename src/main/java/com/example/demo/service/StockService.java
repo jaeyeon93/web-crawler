@@ -29,7 +29,13 @@ public class StockService {
         return stockRepository.findByName(name);
     }
 
-    public List<Stock> add(String stockName) throws Exception {
+//    public List<Stock> add(String stockName) throws Exception {
+//        logger.info("add method called : {}", stockName);
+//        Research research = new Research(stockName);
+//        return stockRepository.save(research.make());
+//    }
+
+    public Stock add(String stockName) throws Exception {
         logger.info("add method called : {}", stockName);
         Research research = new Research(stockName);
         return stockRepository.save(research.make());
