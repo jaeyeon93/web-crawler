@@ -21,9 +21,6 @@ import javax.annotation.Resource;
 public class StockController {
     public static final Logger logger = LoggerFactory.getLogger(StockController.class);
 
-    @Resource(name = "research")
-    private Research research;
-
     @Resource(name = "stockService")
     private StockService stockService;
 
@@ -36,6 +33,6 @@ public class StockController {
     @GetMapping("")
     public String showInfo(Model model) {
         model.addAttribute("stock", stockService.findAll());
-        return "/index3";
+        return "/stock/showInfo";
     }
 }

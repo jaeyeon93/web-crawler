@@ -13,14 +13,4 @@ public class HomeController {
     public String index() {
         return "/index";
     }
-
-    @GetMapping("/show")
-    public String second() {
-        return "/index3";
-    }
-
-    @GetMapping("/base")
-    public String base() {
-        return "/index2";
-    }
 }
