@@ -1,4 +1,4 @@
-package com.example.demo.support.test;
+package com.example.demo;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

@@ -1,8 +1,7 @@
 package com.example.demo.web;
 
 import com.example.demo.domain.Stock;
-import com.example.demo.support.test.AcceptanceTest;
-import org.junit.Before;
+import com.example.demo.AcceptanceTest;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +31,15 @@ public class ApiStockAcceptanceTest extends AcceptanceTest {
     @Test
     public void listTest() throws Exception {
         ResponseEntity<String> response = template().getForEntity("/api/stock/list", String.class);
+        logger.info("body is {}", response.getBody());
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+    }
+
+    @Test
+    public void show() throws Exception {
+        ResponseEntity<String> response = template().getForEntity("/api/stock/1", String.class);
+        logger.info("Header is {}", response.getHeaders());
+        logger.info("body is {}", response.getBody());
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
     }
 }

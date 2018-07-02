@@ -1,9 +1,9 @@
 package com.example.demo.domain;
 
+import com.example.demo.support.domain.AbstractEntity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,15 +13,19 @@ public class Stock extends AbstractEntity {
     public static final Logger logger = LoggerFactory.getLogger(Stock.class);
 
     @Column(unique = true)
+    @JsonProperty
     private String name;
 
     @Column
+    @JsonProperty
     private String price;
 
     @Column
+    @JsonProperty
     private String profit;
 
     @Column
+    @JsonProperty
     private String totalCost;
 
     public Stock() {}

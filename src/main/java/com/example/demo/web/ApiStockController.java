@@ -7,10 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.net.URI;
@@ -20,12 +17,11 @@ import java.util.List;
 @RequestMapping("/api/stock")
 public class ApiStockController {
     public static final Logger logger = LoggerFactory.getLogger(ApiStockController.class);
+
     @Resource(name = "stockService")
     private StockService stockService;
 
     private List<Stock> stocks;
-
-
 
     @PostMapping("")
     public ResponseEntity<Void> create(String stockName) throws Exception {
@@ -40,6 +36,11 @@ public class ApiStockController {
     @GetMapping("/list")
     public List<Stock> list() {
         return stockService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Stock show(@PathVariable long id) {
+        return stockService.findById(id);
     }
 
     public List<Stock> getStocks() {

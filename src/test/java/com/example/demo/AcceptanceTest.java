@@ -1,4 +1,4 @@
-package com.example.demo.support.test;
+package com.example.demo;
 
 
 import com.example.demo.domain.Stock;
