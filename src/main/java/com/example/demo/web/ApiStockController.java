@@ -27,11 +27,11 @@ public class ApiStockController {
     private StockService stockService;
 
 //    @PostMapping("")
-//    public ResponseEntity<Void> create(@Valid @RequestBody String stockName) throws Exception {
+//    public ResponseEntity<Stock> create(@Valid @RequestBody String stockName) throws Exception {
 //        stock = stockService.add(stockName);
 //        HttpHeaders headers = new HttpHeaders();
 //        headers.setLocation(URI.create("/api/stock/" + stock.getId()));
-//        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+//        return new ResponseEntity<Stock>(headers, HttpStatus.CREATED);
 //    }
 
     @PostMapping("")
@@ -47,7 +47,7 @@ public class ApiStockController {
         return responseEntities;
     }
 
-    @GetMapping("/list")
+    @GetMapping("")
     public List<Stock> list() {
         return stockService.findAll();
     }

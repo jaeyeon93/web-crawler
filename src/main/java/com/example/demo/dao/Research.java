@@ -27,6 +27,9 @@ public class Research {
 //        this.stockName = stockName;
         // 여러종목
          names = Arrays.asList(stockName.split(","));
+         logger.info("Research 객체 전달받은 이름과 리스트 {}, {}", stockName, getNames());
+        logger.info("Name 1 : {}", getNames().get(0));
+        logger.info("Name 2 : {}", getNames().get(1));
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         System.setProperty("webdriver.chrome.driver", "/Users/jaeyeonkim/Desktop/web-crawler/src/main/java/com/example/demo/chromedriver");
@@ -34,6 +37,8 @@ public class Research {
         String startUrl = "http://finance.daum.net/";
         driver.get(startUrl);
     }
+
+
 // 단일종목
 //    public String search() {
 //        driver.findElement(By.id("name")).sendKeys(getStockName());
@@ -58,8 +63,12 @@ public class Research {
     public String search(String name) {
         driver.findElement(By.id("name")).sendKeys(name);
         driver.findElement(By.id("daumBtnSearch")).click();
+        logger.info("검색 성공 : {}", name);
+
+        //동일종목리스트들
         // 디테일 종목 찾기
-        WebElement element = driver.findElement(By.cssSelector("a[title="+name+"]"));
+        WebElement element = driver.findElement(By.cssSelector("a[title=" + name + ']'));
+        logger.info("webElement : {}", element.getAttribute("title"));
         String detailUrl  = element.getAttribute("href");
         logger.info("detailUrl : {}", detailUrl);
         return detailUrl;

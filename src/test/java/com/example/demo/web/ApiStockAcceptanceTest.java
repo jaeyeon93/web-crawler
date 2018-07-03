@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -17,10 +20,10 @@ public class ApiStockAcceptanceTest extends AcceptanceTest {
 
     @Test
     public void create() throws Exception {
-        String path = createResource("/api/stock", "삼성전기,호텔신라,현대차");
+        String path = createResource("/api/stock", "SK하이닉스");
         logger.info("path : {}", path);
         stock = getResource(path, Stock.class);
-        logger.info("info : {}", stock.toString());
+        logger.info("info : {}", getResource(path, Stock.class));
     }
 
 //    @Test
@@ -41,5 +44,10 @@ public class ApiStockAcceptanceTest extends AcceptanceTest {
         logger.info("Header is {}", response.getHeaders());
         logger.info("body is {}", response.getBody());
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
+    }
+
+    @Test
+    public void delete() throws Exception {
+        template.delete("/api/stock/1");
     }
 }
