@@ -17,11 +17,10 @@ public class ApiStockAcceptanceTest extends AcceptanceTest {
 
     @Test
     public void create() throws Exception {
-        String path = createResource("/api/stock", "삼성전기");
+        String path = createResource("/api/stock", "삼성전기,호텔신라,현대차");
         logger.info("path : {}", path);
         stock = getResource(path, Stock.class);
         logger.info("info : {}", stock.toString());
-        assertThat(stock.getName(), is("삼성전기"));
     }
 
 //    @Test

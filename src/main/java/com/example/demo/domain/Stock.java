@@ -13,7 +13,7 @@ import javax.persistence.Entity;
 public class Stock extends AbstractEntity implements UrlGeneratable {
     public static final Logger logger = LoggerFactory.getLogger(Stock.class);
 
-    @Column(unique = true)
+    @Column
     @JsonProperty
     private String name;
 
