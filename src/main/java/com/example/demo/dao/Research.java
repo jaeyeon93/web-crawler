@@ -4,6 +4,10 @@ import com.example.demo.domain.Stock;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -11,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class Research {
@@ -28,7 +33,7 @@ public class Research {
         // 여러종목
          names = Arrays.asList(stockName.split(","));
         ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--headless");
+        options.addArguments("--headless");
         System.setProperty("webdriver.chrome.driver", "/Users/jaeyeonkim/Desktop/web-crawler/src/main/java/com/example/demo/chromedriver");
         driver = new ChromeDriver(options);
         String startUrl = "http://finance.daum.net/";
@@ -59,10 +64,7 @@ public class Research {
     // 여러개 종목
     public String search(String name) {
         driver.findElement(By.id("name")).sendKeys(name);
-        driver.findElement(By.id("daumBtnSearch")).submit();
-//        driver.findElement(By.id("daumBtnSearch")).click();
-        logger.info("검색 성공 : {}", name);
-
+        driver.findElement(By.id("daumBtnSearch")).click();
         //동일종목리스트들
         // 디테일 종목 찾기
         WebElement element = driver.findElement(By.cssSelector("a[title=" + name + ']'));
@@ -72,10 +74,12 @@ public class Research {
         return detailUrl;
     }
 
-    public List<Stock> make() {
+    public List<Stock> make() throws InterruptedException {
         for (String name : getNames()) {
+            logger.info("{} 종목 찾기 시작", name);
             driver.get(search(name));
             String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
+            //*[@id="topWrap"]/div[1]/ul[2]/li[1]/em
             System.out.println("price : " + price);
             String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
             String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[7]")).getText();
@@ -83,6 +87,18 @@ public class Research {
         }
         return stocks;
     }
+//    public List<Stock> make() throws InterruptedException {
+//        for (String name : getNames()) {
+//            logger.info("{} 종목 찾기 시작", name);
+//            logger.info("info1 : {}", driver.getPageSource());
+//            String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
+//            String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
+//            String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[7]")).getText();
+//            stocks.add(new Stock(name, price, yearProfit, totalCost));
+//        }
+//        return stocks;
+//    }
+
 
     public String getStockName() {
         return stockName;
