@@ -36,6 +36,7 @@ public class ApiStockController {
 
     @PostMapping("")
     public List<ResponseEntity<Void>> create(@Valid @RequestBody String stockName) throws Exception {
+        logger.info("restcontroller start");
         stocks = stockService.add(stockName);
         logger.info("stocks on controller : {}", getStocks());
         HttpHeaders headers = new HttpHeaders();
