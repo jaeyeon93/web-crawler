@@ -27,6 +27,15 @@ public class StockAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
+    public void addNaverStock() throws Exception {
+        HttpEntity<MultiValueMap<String, Object>> request = HtmlFormDataBuilder.urlEncodeForm()
+                .addParameter("stockName", "현대차").build();
+        logger.info("request : {}", request.getHeaders());
+        ResponseEntity<String> response = template().postForEntity("/stock/naver", request, String.class);
+        logger.info("response : {}", response.getHeaders());
+    }
+
+    @Test
     public void 여러개크롤링() throws Exception {
         HttpEntity<MultiValueMap<String, Object>> request = HtmlFormDataBuilder.urlEncodeForm()
                 .addParameter("stockName", "현대차,삼성전기,기아차,카카오").build();

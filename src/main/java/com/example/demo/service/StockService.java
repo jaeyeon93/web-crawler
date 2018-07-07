@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.dao.NaverInfo;
 import com.example.demo.dao.Research;
+import com.example.demo.domain.NaverStock;
 import com.example.demo.domain.Stock;
 import com.example.demo.domain.StockRepository;
 import org.slf4j.Logger;
@@ -46,5 +48,12 @@ public class StockService {
     public void delete(long id) throws Exception {
         logger.info("delete method called {}", id);
         stockRepository.delete(id);
+    }
+
+    public void addNaver(String stockName) {
+        logger.info("addNaver method called : {}", stockName);
+        NaverInfo naverInfo = new NaverInfo(stockName);
+        NaverStock naverStock =naverInfo.makingNaverStock();
+        logger.info("naverStock on service : {}", naverStock.toString());
     }
 }

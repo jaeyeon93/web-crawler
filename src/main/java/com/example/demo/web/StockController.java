@@ -42,4 +42,11 @@ public class StockController {
         model.addAttribute("stock", stockService.findById(id));
         return "/stock/list";
     }
+
+    @PostMapping("/naver")
+    public String naverResearch(String stockName) throws Exception {
+        logger.info("controller called : {}", stockName);
+        stockService.addNaver(stockName);
+        return "redirect:/stock";
+    }
 }
