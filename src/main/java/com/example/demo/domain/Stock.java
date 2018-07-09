@@ -2,9 +2,11 @@ package com.example.demo.domain;
 
 import com.example.demo.support.domain.AbstractEntity;
 import com.example.demo.support.domain.UrlGeneratable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.annotation.Transient;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,6 +30,9 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
     @Column
     @JsonProperty
     private String totalCost;
+
+    @Transient
+    private String url;
 
     public Stock() {}
 

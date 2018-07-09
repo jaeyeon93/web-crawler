@@ -33,7 +33,7 @@ public class Research {
         // 여러종목
          names = Arrays.asList(stockName.split(","));
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
+//        options.addArguments("--headless");
         System.setProperty("webdriver.chrome.driver", "/Users/jaeyeonkim/Desktop/web-crawler/src/main/java/com/example/demo/chromedriver");
         driver = new ChromeDriver(options);
         String startUrl = "http://finance.daum.net/";

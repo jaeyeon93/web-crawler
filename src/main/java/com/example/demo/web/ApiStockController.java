@@ -21,7 +21,6 @@ public class ApiStockController {
     public static final Logger logger = LoggerFactory.getLogger(ApiStockController.class);
     private Stock stock;
     private List<Stock> stocks = new ArrayList<>();
-    private List<ResponseEntity<Void>> responseEntities = new ArrayList<>();
 
     @Resource(name = "stockService")
     private StockService stockService;
@@ -35,15 +34,14 @@ public class ApiStockController {
 //    }
 
     @PostMapping("")
-    public List<ResponseEntity<Void>> create(@Valid @RequestBody String stockName) throws Exception {
+    public ResponseEntity<List<Stock>> create(@Valid @RequestBody String stockName) throws Exception {
         logger.info("restcontroller start");
         stocks = stockService.add(stockName);
-        logger.info("stocks on controller : {}", getStocks());
+        logger.info("stocks on api controller : {}", getStocks());
         HttpHeaders headers = new HttpHeaders();
         for (Stock stock : stocks) {
             headers.setLocation(URI.create("/api/stock/" + stock.getId()));
             logger.info("path : {}", headers.getLocation().getPath());
-            responseEntities.add(new ResponseEntity<Void>(headers, HttpStatus.CREATED));
         }
         return responseEntities;
     }
