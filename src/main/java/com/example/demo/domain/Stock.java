@@ -45,7 +45,10 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
         this.price = price;
         this.profit = profit;
         this.totalCost = totalCost;
-        logger.info("stock 생성1 : {}", toString());
+        logger.info("id is : {}", getId());
+        this.url = "/api/stock/" + getId();
+        // 수동테스트
+        logger.info(",stock 생성1 : {}", toString());
     }
 
     public Stock(long id, String name, String price, String profit, String totalCost) {
@@ -54,6 +57,7 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
         this.price = price;
         this.profit = profit;
         this.totalCost = totalCost;
+        this.url = "/api/stock/" + getId();
         logger.info("stock 생성2 : {}", toString());
     }
 
@@ -73,20 +77,12 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
         return totalCost;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public void setProfit(String profit) {
-        this.profit = profit;
-    }
-
-    public void setTotalCost(String totalCost) {
-        this.totalCost = totalCost;
     }
 
     @Override
@@ -101,6 +97,7 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
                 ", price='" + price + '\'' +
                 ", profit='" + profit + '\'' +
                 ", totalCost='" + totalCost + '\'' +
+                ", url='" + url + '\'' +
                 '}';
     }
 }

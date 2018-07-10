@@ -39,7 +39,7 @@ public class StockController {
     @GetMapping("/{id}")
     public String oneStockInfo(@PathVariable long id, Model model) {
         model.addAttribute("stock", stockService.findById(id));
-        return "/stock/list";
+        return "/stock/showInfo";
     }
 
 }

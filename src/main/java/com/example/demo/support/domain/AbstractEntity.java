@@ -11,7 +11,7 @@ import java.util.Objects;
 @EntityListeners(AuditingEntityListener.class)
 public class AbstractEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     public AbstractEntity() {}
