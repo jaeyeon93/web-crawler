@@ -31,9 +31,6 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
     @JsonProperty
     private String totalCost;
 
-    @Transient
-    private String url;
-
     public Stock() {}
 
     public Stock(String name) {
@@ -46,7 +43,6 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
         this.profit = profit;
         this.totalCost = totalCost;
         logger.info("id is : {}", getId());
-        this.url = "/api/stock/" + getId();
         // 수동테스트
         logger.info(",stock 생성1 : {}", toString());
     }
@@ -77,10 +73,6 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
         return totalCost;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -97,7 +89,6 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
                 ", price='" + price + '\'' +
                 ", profit='" + profit + '\'' +
                 ", totalCost='" + totalCost + '\'' +
-                ", url='" + url + '\'' +
                 '}';
     }
 }
