@@ -1,19 +1,22 @@
 package com.example.demo.domain;
 
-import com.example.demo.support.domain.AbstractEntity;
+//import com.example.demo.support.domain.AbstractEntity;
 import com.example.demo.support.domain.UrlGeneratable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.annotation.Transient;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.ResourceSupport;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
-public class Stock extends AbstractEntity implements UrlGeneratable {
+public class Stock extends ResourceSupport implements UrlGeneratable {
     public static final Logger logger = LoggerFactory.getLogger(Stock.class);
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long id;
 
     @Column
     @JsonProperty
@@ -48,12 +51,11 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
     }
 
     public Stock(long id, String name, String price, String profit, String totalCost) {
-        super(id);
+        this.id = id;
         this.name = name;
         this.price = price;
         this.profit = profit;
         this.totalCost = totalCost;
-        this.url = "/api/stock/" + getId();
         logger.info("stock 생성2 : {}", toString());
     }
 
@@ -82,13 +84,5 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
         return String.format("/stock/%d", getId());
     }
 
-    @Override
-    public String toString() {
-        return "Stock{" +
-                "name='" + name + '\'' +
-                ", price='" + price + '\'' +
-                ", profit='" + profit + '\'' +
-                ", totalCost='" + totalCost + '\'' +
-                '}';
-    }
+
 }

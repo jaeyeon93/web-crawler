@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.domain.Stock;
+import com.example.demo.web.StockController;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -10,12 +11,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Service
 public class Research {
@@ -83,7 +87,12 @@ public class Research {
             System.out.println("price : " + price);
             String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
             String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[7]")).getText();
-            stocks.add(new Stock(name, price, yearProfit, totalCost));
+            Stock stock = new Stock(name, price, yearProfit, totalCost);
+            Link resourceLink = linkTo(StockController.class).slash(stock.id).withSelfRel();
+            logger.info("url : {}", resourceLink.toString());
+            stock.add(resourceLink);
+            stocks.add(stock);
+//            stocks.add(new Stock(name, price, yearProfit, totalCost));
         }
         return stocks;
     }
