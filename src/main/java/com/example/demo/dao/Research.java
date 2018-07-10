@@ -88,8 +88,9 @@ public class Research {
             String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
             String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[7]")).getText();
             Stock stock = new Stock(name, price, yearProfit, totalCost);
-            Link resourceLink = linkTo(StockController.class).slash(stock.id).withSelfRel();
+            Link resourceLink = linkTo(StockController.class).slash(stock.getId()).withRel("stock");
             logger.info("url : {}", resourceLink.toString());
+            logger.info(resourceLink.getHref());
             stock.add(resourceLink);
             stocks.add(stock);
 //            stocks.add(new Stock(name, price, yearProfit, totalCost));

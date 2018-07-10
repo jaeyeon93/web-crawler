@@ -2,6 +2,7 @@ package com.example.demo.domain;
 
 //import com.example.demo.support.domain.AbstractEntity;
 import com.example.demo.support.domain.UrlGeneratable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,7 @@ public class Stock extends ResourceSupport implements UrlGeneratable {
     public static final Logger logger = LoggerFactory.getLogger(Stock.class);
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
     @Column
@@ -45,7 +46,6 @@ public class Stock extends ResourceSupport implements UrlGeneratable {
         this.price = price;
         this.profit = profit;
         this.totalCost = totalCost;
-        logger.info("id is : {}", getId());
         // 수동테스트
         logger.info(",stock 생성1 : {}", toString());
     }
@@ -79,10 +79,23 @@ public class Stock extends ResourceSupport implements UrlGeneratable {
         this.name = name;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String generateUrl() {
         return String.format("/stock/%d", getId());
     }
 
-
+    @Override
+    public String toString() {
+        return "Stock{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price='" + price + '\'' +
+                ", profit='" + profit + '\'' +
+                ", totalCost='" + totalCost + '\'' +
+                '}';
+    }
 }
