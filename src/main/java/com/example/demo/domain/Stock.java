@@ -13,11 +13,7 @@ import javax.persistence.*;
 @Entity
 public class Stock extends ResourceSupport implements UrlGeneratable {
     public static final Logger logger = LoggerFactory.getLogger(Stock.class);
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long id;
-
+    
     @Column
     @JsonProperty
     private String name;
@@ -45,19 +41,17 @@ public class Stock extends ResourceSupport implements UrlGeneratable {
         this.price = price;
         this.profit = profit;
         this.totalCost = totalCost;
-        logger.info("id is : {}", getId());
         // 수동테스트
         logger.info(",stock 생성1 : {}", toString());
     }
 
-    public Stock(long id, String name, String price, String profit, String totalCost) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.profit = profit;
-        this.totalCost = totalCost;
-        logger.info("stock 생성2 : {}", toString());
-    }
+//    public Stock(long id, String name, String price, String profit, String totalCost) {
+//        this.name = name;
+//        this.price = price;
+//        this.profit = profit;
+//        this.totalCost = totalCost;
+//        logger.info("stock 생성2 : {}", toString());
+//    }
 
     public String getName() {
         return name;
@@ -80,9 +74,22 @@ public class Stock extends ResourceSupport implements UrlGeneratable {
     }
 
     @Override
+    public Link getId() {
+        return super.getId();
+    }
+
+    @Override
     public String generateUrl() {
         return String.format("/stock/%d", getId());
     }
 
-
+    @Override
+    public String toString() {
+        return "Stock{" +
+                ", name='" + name + '\'' +
+                ", price='" + price + '\'' +
+                ", profit='" + profit + '\'' +
+                ", totalCost='" + totalCost + '\'' +
+                '}';
+    }
 }

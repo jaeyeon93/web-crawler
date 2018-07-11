@@ -50,4 +50,10 @@ public class StockAcceptanceTest extends AcceptanceTest {
         ResponseEntity<String> response = template().getForEntity("/stock/1", String.class);
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
     }
+
+    @Test
+    public void showStockByName() throws Exception {
+        ResponseEntity<String> response = template().getForEntity("/stock/삼성전자", String.class);
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+    }
 }

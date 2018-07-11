@@ -27,6 +27,7 @@ public class StockService {
     }
 
     public Stock findByName(String name) {
+        logger.info("name on service : {}", name);
         return stockRepository.findByName(name);
     }
 

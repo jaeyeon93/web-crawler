@@ -36,6 +36,13 @@ public class StockController {
         return stockService.findAll();
     }
 
+    @GetMapping("/{stockName}")
+    public String getByName(@PathVariable String stockName, Model model) {
+        logger.info("stock name on controller {}", stockName);
+        model.addAttribute("stock", stockService.findByName(stockName));
+        return "/stock/showInfo";
+    }
+
     @GetMapping("/{id}")
     public String oneStockInfo(@PathVariable long id, Model model) {
         model.addAttribute("stock", stockService.findById(id));
