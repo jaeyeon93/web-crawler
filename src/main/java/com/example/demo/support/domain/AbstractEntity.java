@@ -15,6 +15,7 @@ public class AbstractEntity {
     public static final Logger logger = LoggerFactory.getLogger(AbstractEntity.class);
 
     @Id
+    @JsonProperty
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 

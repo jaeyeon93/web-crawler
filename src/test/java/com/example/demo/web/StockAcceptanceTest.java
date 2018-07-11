@@ -19,20 +19,11 @@ public class StockAcceptanceTest extends AcceptanceTest {
     @Test
     public void addStock() throws Exception {
         HttpEntity<MultiValueMap<String, Object>> request = HtmlFormDataBuilder.urlEncodeForm()
-                .addParameter("stockName", "현대차").build();
+                .addParameter("stockName", "SK하이닉스").build();
         logger.info("request : {}", request.getBody());
         ResponseEntity<String> response = template().postForEntity("/stock", request, String.class);
         logger.info("response : {}", request.getBody());
         assertThat(response.getStatusCode(), is(HttpStatus.FOUND));
-    }
-
-    @Test
-    public void addNaverStock() throws Exception {
-        HttpEntity<MultiValueMap<String, Object>> request = HtmlFormDataBuilder.urlEncodeForm()
-                .addParameter("stockName", "현대차").build();
-        logger.info("request : {}", request.getHeaders());
-        ResponseEntity<String> response = template().postForEntity("/stock/naver", request, String.class);
-        logger.info("response : {}", response.getHeaders());
     }
 
     @Test

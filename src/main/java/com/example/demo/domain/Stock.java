@@ -32,6 +32,22 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
     @JsonProperty
     private String totalCost;
 
+    @Column
+    @JsonProperty
+    private String changeMoney;
+
+    @Column
+    @JsonProperty
+    private String changePerent;
+
+    @Column
+    @JsonProperty
+    private String detailUrl;
+
+    @Column
+    @JsonProperty
+    private String path;
+
     public Stock() {}
 
     public Stock(String name) {
@@ -43,6 +59,19 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
         this.price = price;
         this.profit = profit;
         this.totalCost = totalCost;
+    }
+
+    public Stock(String name, String price, String profit, String totalCost,String changeMoney, String changePerent, String detailUrl) {
+        this.name = name;
+        this.price = price;
+        this.profit = profit;
+        this.totalCost = totalCost;
+        this.changeMoney = changeMoney;
+        this.changePerent = changePerent;
+        this.detailUrl = detailUrl;
+        // 질문. 왜 id값이 계속0인가. 언제 id가 부여가 되는가.
+//        this.path = "/api/stock/" + getId();
+        logger.info("stock 생성 : {}", toString());
     }
 
     public Stock(long id, String name, String price, String profit, String totalCost) {
@@ -82,11 +111,14 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
     @Override
     public String toString() {
         return "Stock{" +
-                ", id='" + getId() + '\'' +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", price='" + price + '\'' +
                 ", profit='" + profit + '\'' +
                 ", totalCost='" + totalCost + '\'' +
+                ", changeMoney='" + changeMoney + '\'' +
+                ", changePerent='" + changePerent + '\'' +
+                ", detailUrl='" + detailUrl + '\'' +
+                ", path='" + path + '\'' +
                 '}';
     }
 }

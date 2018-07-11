@@ -43,4 +43,15 @@ public class StockController {
         return "/stock/showInfo";
     }
 
+    @PutMapping("/{id}")
+    public void stockUpdate(@PathVariable long id, Model model) {
+        logger.info("update method called");
+//        stockService.update(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable long id) throws Exception {
+        logger.info("delete method called");
+        stockService.delete(id);
+    }
 }

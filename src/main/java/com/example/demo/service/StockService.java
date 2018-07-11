@@ -48,5 +48,4 @@ public class StockService {
         logger.info("delete method called {}", id);
         stockRepository.delete(id);
     }
-
 }
