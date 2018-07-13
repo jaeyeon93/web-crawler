@@ -2,6 +2,7 @@ package com.example.demo.web;
 
 import com.example.demo.domain.Stock;
 import com.example.demo.service.StockService;
+import org.apache.xpath.operations.Mod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -36,11 +37,17 @@ public class StockController {
         return stockService.findAll();
     }
 
-    @GetMapping("/{id}")
-    public String oneStockInfo(@PathVariable long id, Model model) {
-        logger.info("controller called, id : {}", id);
-        model.addAttribute("stock", stockService.findById(id));
-        return "/stock/showInfo";
+//    @GetMapping("/{id}")
+//    public String oneStockInfo(@PathVariable long id, Model model) {
+//        logger.info("controller called, id : {}", id);
+//        model.addAttribute("stock", stockService.findById(id));
+//        return "/stock/showInfo";
+//    }
+
+    @GetMapping("/{stockName}")
+    public @ResponseBody List<Stock> getStock(@PathVariable String stockName, Model model) throws Exception {
+        logger.info("parameter : {}", stockName);
+        return stockService.add(stockName);
     }
 
     @PutMapping("/{id}")

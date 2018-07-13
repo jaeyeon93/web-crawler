@@ -28,15 +28,15 @@ public class Research {
     private WebDriver driver;
     private String stockName;
     private String detailUrl;
-//    private List<String> names;
-//    private List<Stock> stocks = new ArrayList<>();
+    private List<String> names;
+    private List<Stock> stocks = new ArrayList<>();
     public Research() {}
 
     public Research(String stockName) {
         //단일종목
-        this.stockName = stockName;
+//        this.stockName = stockName;
         // 여러종목
-//         names = Arrays.asList(stockName.split(","));
+         names = Arrays.asList(stockName.split(","));
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         System.setProperty("webdriver.chrome.driver", "/Users/jaeyeonkim/Desktop/web-crawler/src/main/java/com/example/demo/chromedriver");
@@ -47,58 +47,55 @@ public class Research {
 
 
 // 단일종목
-    public String search() {
-        driver.findElement(By.id("name")).sendKeys(getStockName());
-        driver.findElement(By.id("daumBtnSearch")).click();
-        // 디테일 종목 찾기
-        WebElement element = driver.findElement(By.cssSelector("a[title="+getStockName()+"]"));
-        detailUrl  = element.getAttribute("href");
-        return detailUrl;
-    }
-
-    public Stock make() {
-        driver.get(search());
-        String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
-        String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
-        String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[7]")).getText();
-        String changeMoney = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[2]/span")).getText();
-        String changePercent = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[3]/span")).getText();
-        return new Stock(getStockName(), price, yearProfit, totalCost, changeMoney, changePercent, getDetailUrl());
-    }
+//    public String search() {
+//        driver.findElement(By.id("name")).sendKeys(getStockName());
+//        driver.findElement(By.id("daumBtnSearch")).click();
+//        // 디테일 종목 찾기
+//        WebElement element = driver.findElement(By.cssSelector("a[title="+getStockName()+"]"));
+//        detailUrl  = element.getAttribute("href");
+//        return detailUrl;
+//    }
+//
+//    public Stock make() {
+//        driver.get(search());
+//        String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
+//        String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
+//        String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[7]")).getText();
+//        String changeMoney = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[2]/span")).getText();
+//        String changePercent = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[3]/span")).getText();
+//        return new Stock(getStockName(), price, yearProfit, totalCost, changeMoney, changePercent, getDetailUrl());
+//    }
 
 
     // 여러개 종목
-//    public String search(String name) {
-//        driver.findElement(By.id("name")).sendKeys(name);
-//        driver.findElement(By.id("daumBtnSearch")).click();
-//        //동일종목리스트들
-//        // 디테일 종목 찾기
-//        WebElement element = driver.findElement(By.cssSelector("a[title=" + name + ']'));
-//        logger.info("webElement : {}", element.getAttribute("title"));
-//        String detailUrl  = element.getAttribute("href");
-//        logger.info("detailUrl : {}", detailUrl);
-//        return detailUrl;
-//    }
+    public String search(String name) {
+        driver.findElement(By.id("name")).sendKeys(name);
+        driver.findElement(By.id("daumBtnSearch")).click();
+        //동일종목리스트들
+        // 디테일 종목 찾기
+        WebElement element = driver.findElement(By.cssSelector("a[title=" + name + ']'));
+        logger.info("webElement : {}", element.getAttribute("title"));
+        String detailUrl  = element.getAttribute("href");
+        logger.info("detailUrl : {}", detailUrl);
+        return detailUrl;
+    }
 
 
-//    public List<Stock> make() throws InterruptedException {
-//        for (String name : getNames()) {
-//            logger.info("{} 종목 찾기 시작", name);
-//            driver.get(search(name));
-//            String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
-//            //*[@id="topWrap"]/div[1]/ul[2]/li[1]/em
-//            System.out.println("price : " + price);
-//            String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
-//            String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[7]")).getText();
-//            Stock stock = new Stock(name, price, yearProfit, totalCost);
-//            Resource<Stock> stockResource = new Resource<>(stock);
-//            stockResource.add(linkTo(StockController.class).slash(stock.getId()).withSelfRel());
-//            logger.info("stock resource info : {}", stockResource.toString());
-//            stocks.add(stock);
-////            stocks.add(new Stock(name, price, yearProfit, totalCost));
-//        }
-//        return stocks;
-//    }
+    public List<Stock> make() throws InterruptedException {
+        for (String name : getNames()) {
+            logger.info("{} 종목 찾기 시작", name);
+            driver.get(search(name));
+            String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
+            String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
+            String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[7]")).getText();
+            String changeMoney = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[2]/span")).getText();
+        String changePercent = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[3]/span")).getText();
+        stocks.add(new Stock(name, price, yearProfit, totalCost, changeMoney, changePercent, search(name)));
+        }
+        return stocks;
+    }
+
+
 //    public List<Stock> make() throws InterruptedException {
 //        for (String name : getNames()) {
 //            logger.info("{} 종목 찾기 시작", name);
@@ -111,6 +108,10 @@ public class Research {
 //        return stocks;
 //    }
 
+
+    public List<String> getNames() {
+        return names;
+    }
 
     public String getDetailUrl() {
         return detailUrl;

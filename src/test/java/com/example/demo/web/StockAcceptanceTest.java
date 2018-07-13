@@ -37,6 +37,13 @@ public class StockAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
+    public void 여러개get() throws Exception {
+        ResponseEntity<String> response = template().getForEntity("/stock/이마트,한진칼,현대차,NAVER,카카오", String.class);
+        logger.info("response : {}", response.getBody());
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+    }
+
+    @Test
     public void showStock() throws Exception {
         ResponseEntity<String> response = template().getForEntity("/stock/1", String.class);
         assertThat(response.getStatusCode(), is(HttpStatus.OK));

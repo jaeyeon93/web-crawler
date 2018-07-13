@@ -69,8 +69,6 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
         this.changeMoney = changeMoney;
         this.changePerent = changePerent;
         this.detailUrl = detailUrl;
-        // 질문. 왜 id값이 계속0인가. 언제 id가 부여가 되는가.
-//        this.path = "/api/stock/" + getId();
         logger.info("stock 생성 : {}", toString());
     }
 
