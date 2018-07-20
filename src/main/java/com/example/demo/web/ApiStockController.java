@@ -63,10 +63,6 @@ public class ApiStockController {
         stockService.delete(id);
     }
 
-//    public List<ResponseEntity<Void>> getResponseEntities() {
-//        return responseEntities;
-//    }
-//
     public List<Stock> getStocks() {
         return stocks;
     }

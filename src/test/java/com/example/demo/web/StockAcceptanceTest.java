@@ -19,20 +19,11 @@ public class StockAcceptanceTest extends AcceptanceTest {
     @Test
     public void addStock() throws Exception {
         HttpEntity<MultiValueMap<String, Object>> request = HtmlFormDataBuilder.urlEncodeForm()
-                .addParameter("stockName", "현대차").build();
+                .addParameter("stockName", "SK하이닉스").build();
         logger.info("request : {}", request.getBody());
         ResponseEntity<String> response = template().postForEntity("/stock", request, String.class);
         logger.info("response : {}", request.getBody());
         assertThat(response.getStatusCode(), is(HttpStatus.FOUND));
-    }
-
-    @Test
-    public void addNaverStock() throws Exception {
-        HttpEntity<MultiValueMap<String, Object>> request = HtmlFormDataBuilder.urlEncodeForm()
-                .addParameter("stockName", "현대차").build();
-        logger.info("request : {}", request.getHeaders());
-        ResponseEntity<String> response = template().postForEntity("/stock/naver", request, String.class);
-        logger.info("response : {}", response.getHeaders());
     }
 
     @Test
@@ -43,6 +34,13 @@ public class StockAcceptanceTest extends AcceptanceTest {
         ResponseEntity<String> response = template().postForEntity("/stock", request, String.class);
         logger.info("response : {}", request.getBody());
         assertThat(response.getStatusCode(), is(HttpStatus.FOUND));
+    }
+
+    @Test
+    public void 여러개get() throws Exception {
+        ResponseEntity<String> response = template().getForEntity("/stock/이마트,한진칼,현대차,NAVER,카카오", String.class);
+        logger.info("response : {}", response.getBody());
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
     }
 
     @Test

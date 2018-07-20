@@ -2,6 +2,7 @@ package com.example.demo.web;
 
 import com.example.demo.domain.Stock;
 import com.example.demo.service.StockService;
+import org.apache.xpath.operations.Mod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -36,17 +37,28 @@ public class StockController {
         return stockService.findAll();
     }
 
+//    @GetMapping("/{id}")
+//    public String oneStockInfo(@PathVariable long id, Model model) {
+//        logger.info("controller called, id : {}", id);
+//        model.addAttribute("stock", stockService.findById(id));
+//        return "/stock/showInfo";
+//    }
+
     @GetMapping("/{stockName}")
-    public String getByName(@PathVariable String stockName, Model model) {
-        logger.info("stock name on controller {}", stockName);
-        model.addAttribute("stock", stockService.findByName(stockName));
-        return "/stock/showInfo";
+    public @ResponseBody List<Stock> getStock(@PathVariable String stockName, Model model) throws Exception {
+        logger.info("parameter : {}", stockName);
+        return stockService.add(stockName);
     }
 
-    @GetMapping("/{id}")
-    public String oneStockInfo(@PathVariable long id, Model model) {
-        model.addAttribute("stock", stockService.findById(id));
-        return "/stock/showInfo";
+    @PutMapping("/{id}")
+    public void stockUpdate(@PathVariable long id, Model model) {
+        logger.info("update method called");
+//        stockService.update(id);
     }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable long id) throws Exception {
+        logger.info("delete method called");
+        stockService.delete(id);
+    }
 }

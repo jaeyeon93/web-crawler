@@ -16,10 +16,6 @@ import javax.persistence.*;
 public class Stock extends AbstractEntity implements UrlGeneratable {
     public static final Logger logger = LoggerFactory.getLogger(Stock.class);
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
-
     @Column
     @JsonProperty
     private String name;
@@ -36,6 +32,22 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
     @JsonProperty
     private String totalCost;
 
+    @Column
+    @JsonProperty
+    private String changeMoney;
+
+    @Column
+    @JsonProperty
+    private String changePerent;
+
+    @Column
+    @JsonProperty
+    private String detailUrl;
+
+    @Column
+    @JsonProperty
+    private String path;
+
     public Stock() {}
 
     public Stock(String name) {
@@ -47,12 +59,21 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
         this.price = price;
         this.profit = profit;
         this.totalCost = totalCost;
-        // 수동테스트
-        logger.info(",stock 생성1 : {}", toString());
+    }
+
+    public Stock(String name, String price, String profit, String totalCost,String changeMoney, String changePerent, String detailUrl) {
+        this.name = name;
+        this.price = price;
+        this.profit = profit;
+        this.totalCost = totalCost;
+        this.changeMoney = changeMoney;
+        this.changePerent = changePerent;
+        this.detailUrl = detailUrl;
+        logger.info("stock 생성 : {}", toString());
     }
 
     public Stock(long id, String name, String price, String profit, String totalCost) {
-        this.id = id;
+        super(id);
         this.name = name;
         this.price = price;
         this.profit = profit;
@@ -80,10 +101,6 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
         this.name = name;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     @Override
     public String generateUrl() {
         return String.format("/stock/%d", getId());
@@ -92,11 +109,14 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
     @Override
     public String toString() {
         return "Stock{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", price='" + price + '\'' +
                 ", profit='" + profit + '\'' +
                 ", totalCost='" + totalCost + '\'' +
+                ", changeMoney='" + changeMoney + '\'' +
+                ", changePerent='" + changePerent + '\'' +
+                ", detailUrl='" + detailUrl + '\'' +
+                ", path='" + path + '\'' +
                 '}';
     }
 }
