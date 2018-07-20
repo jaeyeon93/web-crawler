@@ -1,6 +1,7 @@
 package com.example.demo.domain;
 
 //import com.example.demo.support.domain.AbstractEntity;
+import com.example.demo.support.domain.AbstractEntity;
 import com.example.demo.support.domain.UrlGeneratable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,7 +13,7 @@ import org.springframework.hateoas.ResourceSupport;
 import javax.persistence.*;
 
 @Entity
-public class Stock extends ResourceSupport implements UrlGeneratable {
+public class Stock extends AbstractEntity implements UrlGeneratable {
     public static final Logger logger = LoggerFactory.getLogger(Stock.class);
 
     @Id

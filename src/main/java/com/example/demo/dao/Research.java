@@ -46,57 +46,38 @@ public class Research {
 
 
 // 단일종목
-//    public String search() {
-//        driver.findElement(By.id("name")).sendKeys(getStockName());
-//        driver.findElement(By.id("daumBtnSearch")).click();
-//        // 디테일 종목 찾기
-//        WebElement element = driver.findElement(By.cssSelector("a[title="+getStockName()+"]"));
-//        String detailUrl  = element.getAttribute("href");
-//        return detailUrl;
-//    }
-//
-//    public Stock make() {
-//        driver.get(search());
-//        String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
-//        System.out.println("price : " + price);
-//        String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
-//        String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[7]")).getText();
-//        return new Stock(getStockName(), price, yearProfit, totalCost);
-//    }
-
-
-    // 여러개 종목
-    public String search(String name) {
-        driver.findElement(By.id("name")).sendKeys(name);
+    public String search() {
+        driver.findElement(By.id("name")).sendKeys(getStockName());
         driver.findElement(By.id("daumBtnSearch")).click();
-        //동일종목리스트들
         // 디테일 종목 찾기
-        WebElement element = driver.findElement(By.cssSelector("a[title=" + name + ']'));
-        logger.info("webElement : {}", element.getAttribute("title"));
+        WebElement element = driver.findElement(By.cssSelector("a[title="+getStockName()+"]"));
         String detailUrl  = element.getAttribute("href");
-        logger.info("detailUrl : {}", detailUrl);
         return detailUrl;
     }
 
-    public List<Stock> make() throws InterruptedException {
-        for (String name : getNames()) {
-            logger.info("{} 종목 찾기 시작", name);
-            driver.get(search(name));
-            String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
-            //*[@id="topWrap"]/div[1]/ul[2]/li[1]/em
-            System.out.println("price : " + price);
-            String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
-            String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[7]")).getText();
-            Stock stock = new Stock(name, price, yearProfit, totalCost);
-            Link resourceLink = linkTo(StockController.class).slash(stock.getId()).withRel("stock");
-            logger.info("url : {}", resourceLink.toString());
-            logger.info(resourceLink.getHref());
-            stock.add(resourceLink);
-            stocks.add(stock);
-//            stocks.add(new Stock(name, price, yearProfit, totalCost));
-        }
-        return stocks;
+    public Stock make() {
+        driver.get(search());
+        String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
+        System.out.println("price : " + price);
+        String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
+        String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[7]")).getText();
+        return new Stock(getStockName(), price, yearProfit, totalCost);
     }
+
+
+    // 여러개 종목
+//    public String search(String name) {
+//        driver.findElement(By.id("name")).sendKeys(name);
+//        driver.findElement(By.id("daumBtnSearch")).click();
+//        //동일종목리스트들
+//        // 디테일 종목 찾기
+//        WebElement element = driver.findElement(By.cssSelector("a[title=" + name + ']'));
+//        logger.info("webElement : {}", element.getAttribute("title"));
+//        String detailUrl  = element.getAttribute("href");
+//        logger.info("detailUrl : {}", detailUrl);
+//        return detailUrl;
+//    }
+
 //    public List<Stock> make() throws InterruptedException {
 //        for (String name : getNames()) {
 //            logger.info("{} 종목 찾기 시작", name);
