@@ -27,15 +27,14 @@ public class Research {
     private WebDriver driver;
     private String stockName;
     private List<String> names;
-    private List<Stock> stocks = new ArrayList<>();
 
     public Research() {}
 
     public Research(String stockName) {
         //단일종목
-//        this.stockName = stockName;
+        this.stockName = stockName;
         // 여러종목
-         names = Arrays.asList(stockName.split(","));
+//         names = Arrays.asList(stockName.split(","));
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         System.setProperty("webdriver.chrome.driver", "/Users/jaeyeonkim/Desktop/web-crawler/src/main/java/com/example/demo/chromedriver");
@@ -63,7 +62,6 @@ public class Research {
         String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[7]")).getText();
         return new Stock(getStockName(), price, yearProfit, totalCost);
     }
-
 
     // 여러개 종목
 //    public String search(String name) {
@@ -93,10 +91,6 @@ public class Research {
 
     public String getStockName() {
         return stockName;
-    }
-
-    public List<String> getNames() {
-        return names;
     }
 
     @Override

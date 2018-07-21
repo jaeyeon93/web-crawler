@@ -37,18 +37,13 @@ public class StockController {
         return stockService.findAll();
     }
 
-//    @GetMapping("/{id}")
-//    public String oneStockInfo(@PathVariable long id, Model model) {
-//        logger.info("controller called, id : {}", id);
-//        model.addAttribute("stock", stockService.findById(id));
-//        return "/stock/showInfo";
-//    }
-
-    @GetMapping("/{stockName}")
-    public @ResponseBody List<Stock> getStock(@PathVariable String stockName, Model model) throws Exception {
-        logger.info("parameter : {}", stockName);
-        return stockService.add(stockName);
+    @GetMapping("/{id}")
+    public String oneStockInfo(@PathVariable long id, Model model) {
+        logger.info("controller called, id : {}", id);
+        model.addAttribute("stock", stockService.findById(id));
+        return "/stock/showInfo";
     }
+
 
     @PutMapping("/{id}")
     public void stockUpdate(@PathVariable long id, Model model) {
