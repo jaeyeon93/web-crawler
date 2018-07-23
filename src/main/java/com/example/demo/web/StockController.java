@@ -26,6 +26,13 @@ public class StockController {
         return "redirect:/stock";
     }
 
+    @PostMapping("/{stockName}")
+    public @ResponseBody Stock getInfoByName(@PathVariable String stockName) throws Exception {
+        logger.info("stockName on Controller : {}", stockName);
+        stockService.add(stockName);
+        return stockService.findByName(stockName);
+    }
+
 //    @GetMapping("")
 //    public String list(Model model) {
 //        model.addAttribute("stock", stockService.findAll());

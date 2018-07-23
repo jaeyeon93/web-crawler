@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 
+import javax.xml.ws.Response;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -27,10 +29,17 @@ public class StockAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 여러개get() throws Exception {
-        ResponseEntity<String> response = template().getForEntity("/stock/이마트,한진칼,현대차,NAVER,카카오", String.class);
-        logger.info("response : {}", response.getBody());
-        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+    public void addlowerCaseName() throws Exception {
+        HttpEntity<MultiValueMap<String, Object>> request = HtmlFormDataBuilder.urlEncodeForm()
+                .addParameter("stockName", "naver").build();
+        ResponseEntity<String> response = template().postForEntity("/stock/naver",request, String.class);
+    }
+
+    @Test
+    public void 소문자한글포함() throws Exception {
+        HttpEntity<MultiValueMap<String, Object>> request = HtmlFormDataBuilder.urlEncodeForm()
+                .addParameter("stockName", "sk하이닉스").build();
+        ResponseEntity<String> response = template().postForEntity("/stock/sk하이닉스",request, String.class);
     }
 
     @Test

@@ -32,7 +32,7 @@ public class Research {
 
     public Research(String stockName) {
         //단일종목
-        this.stockName = stockName;
+        this.stockName = stockName.toUpperCase();
         // 여러종목
 //         names = Arrays.asList(stockName.split(","));
         ChromeOptions options = new ChromeOptions();
