@@ -60,7 +60,9 @@ public class Research {
         System.out.println("price : " + price);
         String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
         String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[7]")).getText();
-        return new Stock(getStockName(), price, yearProfit, totalCost);
+        String changeMoney = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[2]/span")).getText();
+        String changePercent = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[3]/span")).getText();
+        return new Stock(getStockName(), price, yearProfit, totalCost, changeMoney, changePercent, search());
     }
 
     // 여러개 종목
