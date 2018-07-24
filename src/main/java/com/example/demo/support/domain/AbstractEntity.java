@@ -54,11 +54,11 @@ public class AbstractEntity {
         return LocalDate.parse(getCreateDate(), DateTimeFormatter.ofPattern("yyyy.MM.dd"));
     }
 
-    public Integer getDiff() {
-        logger.info("생성시간 : {}", changeDate().getDayOfYear());
-        logger.info("현재시간 : {}", LocalDateTime.now().getDayOfYear());
-        return (LocalDateTime.now().getDayOfYear() - createDate.toLocalDate().getDayOfYear());
-    }
+//    public Integer getDiff() {
+//        logger.info("생성시간 : {}", changeDate().getDayOfYear());
+//        logger.info("현재시간 : {}", LocalDateTime.now().getDayOfYear());
+//        return (LocalDateTime.now().getDayOfYear() - createDate.toLocalDate().getDayOfYear());
+//    }
 
     private String getFormattedDate(LocalDateTime dateTime, String format) {
         if (dateTime == null)
