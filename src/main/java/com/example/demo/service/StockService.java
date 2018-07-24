@@ -26,12 +26,6 @@ public class StockService {
         return stockRepository.findOne(id);
     }
 
-//    public List<Stock> add(String stockName) throws Exception {
-//        logger.info("add method called : {}", stockName);
-//        Research research = new Research(stockName);
-//        return stockRepository.save(research.make());
-//    }
-
     public Stock findByName(String stockName) {
         logger.info("stockName on Service : {}", stockName);
         return stockRepository.findByName(stockName);

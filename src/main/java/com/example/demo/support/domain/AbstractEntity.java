@@ -2,18 +2,24 @@ package com.example.demo.support.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Objects;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class AbstractEntity {
+    private static final Logger logger =  LoggerFactory.getLogger(AbstractEntity.class);
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -34,11 +40,6 @@ public class AbstractEntity {
         return id;
     }
 
-    public String getDate() {
-//        modifiedDate.minusDays(createDate.getd);
-        return "";
-    }
-
     @JsonIgnore
     public String getCreateDate() {
         return getFormattedDate(createDate, "yyyy.MM.dd");
@@ -47,6 +48,16 @@ public class AbstractEntity {
     @JsonIgnore
     public String getLocalDateTime() {
         return getFormattedDate(modifiedDate, "yyyy.MM.dd");
+    }
+
+    public LocalDate changeDate() {
+        return LocalDate.parse(getCreateDate(), DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+    }
+
+    public Integer getDiff() {
+        logger.info("생성시간 : {}", changeDate().getDayOfYear());
+        logger.info("현재시간 : {}", LocalDateTime.now().getDayOfYear());
+        return (LocalDateTime.now().getDayOfYear() - createDate.toLocalDate().getDayOfYear());
     }
 
     private String getFormattedDate(LocalDateTime dateTime, String format) {

@@ -33,12 +33,6 @@ public class StockController {
         return stockService.findByName(stockName);
     }
 
-//    @GetMapping("")
-//    public String list(Model model) {
-//        model.addAttribute("stock", stockService.findAll());
-//        return "/stock/showInfo";
-//    }
-
     @GetMapping("")
     public @ResponseBody List<Stock> list(Model model) {
         return stockService.findAll();

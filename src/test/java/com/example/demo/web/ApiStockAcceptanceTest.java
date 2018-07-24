@@ -26,10 +26,21 @@ public class ApiStockAcceptanceTest extends AcceptanceTest {
         logger.info("info : {}", getResource(path, Stock.class));
     }
 
-//    @Test
-//    public void 여러개() throws Exception {
-//        String path = createResource("/api/stock", "삼성전기,신세계,호텔신라");
-//    }
+    @Test
+    public void 소문자이름() throws Exception {
+        String path = createResource("/api/stock", "naver");
+        logger.info("path info : {}", path);
+        stock = getResource(path, Stock.class);
+        logger.info("stock info : {}", stock.toString());
+    }
+
+    @Test
+    public void 소문자한글() throws Exception {
+        String path = createResource("/api/stock", "sk하이닉스");
+        logger.info("path info : {}", path);
+        stock = getResource(path, Stock.class);
+        logger.info("stock info : {}", stock.toString());
+    }
 
     @Test
     public void listTest() throws Exception {

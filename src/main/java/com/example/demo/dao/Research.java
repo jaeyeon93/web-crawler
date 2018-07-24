@@ -31,10 +31,7 @@ public class Research {
     public Research() {}
 
     public Research(String stockName) {
-        //단일종목
         this.stockName = stockName.toUpperCase();
-        // 여러종목
-//         names = Arrays.asList(stockName.split(","));
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         System.setProperty("webdriver.chrome.driver", "/Users/jaeyeonkim/Desktop/web-crawler/src/main/java/com/example/demo/chromedriver");
@@ -44,11 +41,9 @@ public class Research {
     }
 
 
-// 단일종목
     public String search() {
         driver.findElement(By.id("name")).sendKeys(getStockName());
         driver.findElement(By.id("daumBtnSearch")).click();
-        // 디테일 종목 찾기
         WebElement element = driver.findElement(By.cssSelector("a[title="+getStockName()+"]"));
         String detailUrl  = element.getAttribute("href");
         return detailUrl;
@@ -57,39 +52,13 @@ public class Research {
     public Stock make() {
         driver.get(search());
         String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
-        System.out.println("price : " + price);
+        String salesMoney = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[4]/td[9]")).getText();
         String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
-        String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[7]")).getText();
+        String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[9]")).getText();
         String changeMoney = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[2]/span")).getText();
         String changePercent = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[3]/span")).getText();
-        return new Stock(getStockName(), price, yearProfit, totalCost, changeMoney, changePercent, search());
+        return new Stock(getStockName(), price, salesMoney, yearProfit, totalCost, changeMoney, changePercent, search());
     }
-
-    // 여러개 종목
-//    public String search(String name) {
-//        driver.findElement(By.id("name")).sendKeys(name);
-//        driver.findElement(By.id("daumBtnSearch")).click();
-//        //동일종목리스트들
-//        // 디테일 종목 찾기
-//        WebElement element = driver.findElement(By.cssSelector("a[title=" + name + ']'));
-//        logger.info("webElement : {}", element.getAttribute("title"));
-//        String detailUrl  = element.getAttribute("href");
-//        logger.info("detailUrl : {}", detailUrl);
-//        return detailUrl;
-//    }
-
-//    public List<Stock> make() throws InterruptedException {
-//        for (String name : getNames()) {
-//            logger.info("{} 종목 찾기 시작", name);
-//            logger.info("info1 : {}", driver.getPageSource());
-//            String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
-//            String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
-//            String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[7]")).getText();
-//            stocks.add(new Stock(name, price, yearProfit, totalCost));
-//        }
-//        return stocks;
-//    }
-
 
     public String getStockName() {
         return stockName;

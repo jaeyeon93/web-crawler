@@ -62,4 +62,11 @@ public class StockTest {
         System.out.println("diff : " + diff);
         System.out.println("diff time : " + (diff / (3600 * 1000)));
     }
+
+    @Test
+    public void currentTime() throws Exception {
+        stock = new Stock(1L, "naver","760,000", "1000","1000");
+        logger.info("두 날짜 차이는 : {}", stock.getDiff());
+        logger.info("현재시간 : {}", LocalDateTime.now().getDayOfYear());
+    }
 }

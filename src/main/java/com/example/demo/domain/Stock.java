@@ -1,14 +1,10 @@
 package com.example.demo.domain;
 
-//import com.example.demo.support.domain.AbstractEntity;
 import com.example.demo.support.domain.AbstractEntity;
 import com.example.demo.support.domain.UrlGeneratable;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.hateoas.Link;
-import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
 
@@ -19,6 +15,10 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
     @Column
     @JsonProperty
     private String name;
+
+    @Column
+    @JsonProperty
+    private String salesMoney;
 
     @Column
     @JsonProperty
@@ -44,10 +44,6 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
     @JsonProperty
     private String detailUrl;
 
-    @Column
-    @JsonProperty
-    private String path;
-
     public Stock() {}
 
     public Stock(String name) {
@@ -58,18 +54,18 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
         this.name = name.toUpperCase();
         this.price = price;
         this.profit = profit;
-        this.totalCost = totalCost;
+        this.totalCost = totalCost.replaceAll(" ", "");
     }
 
-    public Stock(String name, String price, String profit, String totalCost,String changeMoney, String changePerent, String detailUrl) {
+    public Stock(String name, String price, String salesMoney, String profit, String totalCost,String changeMoney, String changePerent, String detailUrl) {
         this.name = name.toUpperCase();
+        this.salesMoney = salesMoney;
         this.price = price;
         this.profit = profit;
-        this.totalCost = totalCost;
+        this.totalCost = totalCost.replaceAll(" ", "");
         this.changeMoney = changeMoney;
         this.changePerent = changePerent;
         this.detailUrl = detailUrl;
-        logger.info("stock 생성 : {}", toString());
     }
 
     public Stock(long id, String name, String price, String profit, String totalCost) {
@@ -77,12 +73,15 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
         this.name = name.toUpperCase();
         this.price = price;
         this.profit = profit;
-        this.totalCost = totalCost;
-        logger.info("stock 생성2 : {}", toString());
+        this.totalCost = totalCost.replaceAll(" ", "");
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getSalesMoney() {
+        return salesMoney;
     }
 
     public String getPrice() {
@@ -110,6 +109,7 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
     public String toString() {
         return "Stock{" +
                 "name='" + name + '\'' +
+                ", salesMoney='" + salesMoney + '\'' +
                 ", price='" + price + '\'' +
                 ", profit='" + profit + '\'' +
                 ", totalCost='" + totalCost + '\'' +
