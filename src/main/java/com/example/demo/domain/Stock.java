@@ -5,12 +5,14 @@ import com.example.demo.support.domain.AbstractEntity;
 import com.example.demo.support.domain.UrlGeneratable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.CreationTimestamp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Stock extends AbstractEntity implements UrlGeneratable {
@@ -47,6 +49,10 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
     @Column
     @JsonProperty
     private String path;
+
+    @Column
+    @CreationTimestamp
+    private Date timestamp;
 
     public Stock() {}
 
@@ -104,6 +110,10 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
     @Override
     public String generateUrl() {
         return String.format("/stock/%d", getId());
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
     }
 
     @Override

@@ -60,7 +60,12 @@ public class Research {
         System.out.println("price : " + price);
         String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
         String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[7]")).getText();
-        return new Stock(getStockName(), price, yearProfit, totalCost);
+
+        // 일정기간 넘으면. 찾고 아니면 패스
+        String changeMoneny = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[2]/span")).getText();
+        String chagePercent = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[3]/span")).getText();
+        String detailUrl = search();
+        return new Stock(getStockName(), price, yearProfit, totalCost, changeMoneny, chagePercent, detailUrl);
     }
 
     // 여러개 종목
