@@ -37,6 +37,20 @@ public class StockService {
         return stockRepository.save(research.make());
     }
 
+    public boolean checkMakingStock(String stockName) {
+        logger.info("stockName : {} on checkMakingStock method", stockName);
+        if (stockRepository.findByName(stockName) != null)
+            return true;
+        return false;
+    }
+
+    @Transactional
+    public void update(long id, Stock updatedStock) throws Exception {
+        logger.info("stockupdate method called");
+        Stock original = stockRepository.findOne(id);
+        original.update(updatedStock);
+    }
+
     @Transactional
     public void delete(long id) throws Exception {
         logger.info("delete method called {}", id);

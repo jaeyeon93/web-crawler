@@ -50,6 +50,7 @@ public class Research {
     }
 
     public Stock make() {
+        // url 가져오기
         driver.get(search());
         String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
         String salesMoney = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[4]/td[9]")).getText();

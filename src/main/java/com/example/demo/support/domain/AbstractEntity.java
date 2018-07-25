@@ -30,7 +30,8 @@ public class AbstractEntity {
     @LastModifiedDate
     private LocalDateTime modifiedDate;
 
-    public AbstractEntity() {}
+    public AbstractEntity() {
+    }
 
     public AbstractEntity(long id) {
         this.id = id;

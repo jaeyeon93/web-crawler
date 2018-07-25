@@ -44,6 +44,16 @@ public class StockTest {
     }
 
     @Test
+    public void updateTest() {
+        stock = new Stock("naver", "46,784","746,000", "11,791", "245,902억(9위)", "1,000", "+0.13％", "http://finance.daum.net/item/main.daum?code=035420");
+        logger.info("만들어진 주식 : {}", stock.toString());
+        Stock target = new Stock("naver", "50,000","746,000", "11,791", "245,902억(9위)", "10,000", "+1.13％", "http://finance.daum.net/item/main.daum?code=035420");
+        stock.update(target);
+        logger.info("변경된 주식 : {}", stock.toString());
+        assertThat(stock.getChangeMoney(), is("10,000"));
+    }
+
+    @Test
     public void makeToJson() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         String jsonStock = mapper.writeValueAsString(stock);
@@ -66,7 +76,6 @@ public class StockTest {
     @Test
     public void currentTime() throws Exception {
         stock = new Stock(1L, "naver","760,000", "1000","1000");
-        logger.info("두 날짜 차이는 : {}", stock.getDiff());
         logger.info("현재시간 : {}", LocalDateTime.now().getDayOfYear());
     }
 }

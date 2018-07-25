@@ -76,6 +76,12 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
         this.totalCost = totalCost.replaceAll(" ", "");
     }
 
+    public void update(Stock target) {
+        this.price = target.price;
+        this.changeMoney = target.changeMoney;
+        this.changePerent = target.changePerent;
+    }
+
     public String getName() {
         return name;
     }
@@ -96,8 +102,31 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
         return totalCost;
     }
 
+    public String getChangeMoney() {
+        return changeMoney;
+    }
+
+    public String getChangePerent() {
+        return changePerent;
+    }
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Stock setPrice(String price) {
+        this.price = price;
+        return this;
+    }
+
+    public Stock setChangeMoney(String changeMoney) {
+        this.changeMoney = changeMoney;
+        return this;
+    }
+
+    public Stock setChangePerent(String changePerent) {
+        this.changePerent = changePerent;
+        return this;
     }
 
     @Override
