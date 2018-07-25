@@ -34,6 +34,13 @@ public class StockService {
     public Stock add(String stockName) throws Exception {
         logger.info("add method called : {}", stockName);
         Research research = new Research(stockName);
+        if (checkMakingStock(stockName)) {
+            logger.info("db에 존재함 : {}");
+            Stock stock = research.update(stockRepository.findByName(stockName));
+            logger.info("updated stock inforamtion on service : {}", stock.toString());
+            return stockRepository.save(stock);
+        }
+        logger.info("DB에 {}이 존재하지 않음", stockName);
         return stockRepository.save(research.make());
     }
 
@@ -45,16 +52,8 @@ public class StockService {
     }
 
     @Transactional
-    public void update(long id, Stock updatedStock) throws Exception {
-        logger.info("stockupdate method called");
-        Stock original = stockRepository.findOne(id);
-        original.update(updatedStock);
-    }
-
-    @Transactional
     public void delete(long id) throws Exception {
         logger.info("delete method called {}", id);
         stockRepository.delete(id);
     }
-
 }

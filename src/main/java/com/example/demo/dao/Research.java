@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.domain.Stock;
+import com.example.demo.domain.StockRepository;
 import com.example.demo.web.StockController;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +28,6 @@ public class Research {
     public static final Logger logger = LoggerFactory.getLogger(Research.class);
     private WebDriver driver;
     private String stockName;
-    private List<String> names;
 
     public Research() {}
 
@@ -51,6 +52,7 @@ public class Research {
 
     public Stock make() {
         // url 가져오기
+        logger.info("make method called");
         driver.get(search());
         String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
         String salesMoney = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[4]/td[9]")).getText();
@@ -61,15 +63,20 @@ public class Research {
         return new Stock(getStockName(), price, salesMoney, yearProfit, totalCost, changeMoney, changePercent, search());
     }
 
+    public Stock update(Stock original) {
+        logger.info("update method called on research Object");
+        driver.get(search());
+        String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
+        String changeMoney = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[2]/span")).getText();
+        String changePercent = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[3]/span")).getText();
+        logger.info("values {},,, {},,, {}", price, changeMoney, changePercent);
+        original.update(price, changeMoney, changePercent);
+        logger.info("update info : {}", original.toString());
+        return original;
+    }
+
     public String getStockName() {
         return stockName;
     }
 
-    @Override
-    public String toString() {
-        return "Research{" +
-                "driver=" + driver +
-                ", stockName='" + stockName + '\'' +
-                '}';
-    }
 }

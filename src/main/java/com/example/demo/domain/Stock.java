@@ -38,7 +38,7 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
 
     @Column
     @JsonProperty
-    private String changePerent;
+    private String changePercent;
 
     @Column
     @JsonProperty
@@ -57,14 +57,14 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
         this.totalCost = totalCost.replaceAll(" ", "");
     }
 
-    public Stock(String name, String price, String salesMoney, String profit, String totalCost,String changeMoney, String changePerent, String detailUrl) {
+    public Stock(String name, String price, String salesMoney, String profit, String totalCost, String changeMoney, String changePercent, String detailUrl) {
         this.name = name.toUpperCase();
-        this.salesMoney = salesMoney;
         this.price = price;
+        this.salesMoney = salesMoney;
         this.profit = profit;
         this.totalCost = totalCost.replaceAll(" ", "");
         this.changeMoney = changeMoney;
-        this.changePerent = changePerent;
+        this.changePercent = changePercent;
         this.detailUrl = detailUrl;
     }
 
@@ -76,10 +76,10 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
         this.totalCost = totalCost.replaceAll(" ", "");
     }
 
-    public void update(Stock target) {
-        this.price = target.price;
-        this.changeMoney = target.changeMoney;
-        this.changePerent = target.changePerent;
+    public void update(String price, String changeMoney, String changePerent) {
+        this.price = price;
+        this.changeMoney = changeMoney;
+        this.changePercent = changePerent;
     }
 
     public String getName() {
@@ -106,8 +106,8 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
         return changeMoney;
     }
 
-    public String getChangePerent() {
-        return changePerent;
+    public String getChangePercent() {
+        return changePercent;
     }
 
     public void setName(String name) {
@@ -124,8 +124,8 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
         return this;
     }
 
-    public Stock setChangePerent(String changePerent) {
-        this.changePerent = changePerent;
+    public Stock setChangePercent(String changePercent) {
+        this.changePercent = changePercent;
         return this;
     }
 
@@ -143,7 +143,7 @@ public class Stock extends AbstractEntity implements UrlGeneratable {
                 ", profit='" + profit + '\'' +
                 ", totalCost='" + totalCost + '\'' +
                 ", changeMoney='" + changeMoney + '\'' +
-                ", changePerent='" + changePerent + '\'' +
+                ", changePercent='" + changePercent + '\'' +
                 ", detailUrl='" + detailUrl + '\'' +
                 '}';
     }

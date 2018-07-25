@@ -50,7 +50,11 @@ public class StockAcceptanceTest extends AcceptanceTest {
 
     @Test
     public void showStockByName() throws Exception {
-        ResponseEntity<String> response = template().getForEntity("/stock/삼성전자", String.class);
-        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        HttpEntity<MultiValueMap<String, Object>> request = HtmlFormDataBuilder.urlEncodeForm()
+                .addParameter("stockName", "삼성전자").build();
+        ResponseEntity<String> response = template.postForEntity("/stock", request, String.class);
+//        ResponseEntity<String> response = template().getForEntity("/stock/삼성전자", String.class);
+//        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+
     }
 }
