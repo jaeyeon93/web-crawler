@@ -51,15 +51,20 @@ public class AbstractEntity {
         return getFormattedDate(modifiedDate, "yyyy.MM.dd");
     }
 
-    public LocalDate changeDate() {
-        return LocalDate.parse(getCreateDate(), DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+    @JsonIgnore
+    public String getRequestTime() {
+        return getFormattedDate(LocalDateTime.now(),"yyyy.MM.dd");
     }
 
-//    public Integer getDiff() {
-//        logger.info("생성시간 : {}", changeDate().getDayOfYear());
-//        logger.info("현재시간 : {}", LocalDateTime.now().getDayOfYear());
-//        return (LocalDateTime.now().getDayOfYear() - createDate.toLocalDate().getDayOfYear());
-//    }
+    public LocalDate changeDate(String date) {
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+    }
+
+    public Integer getDiffday() {
+        int createDate = changeDate(getLocalDateTime()).getDayOfYear();
+        int current = changeDate(getRequestTime()).getDayOfYear();
+        return current - createDate;
+    }
 
     private String getFormattedDate(LocalDateTime dateTime, String format) {
         if (dateTime == null)

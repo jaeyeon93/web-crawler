@@ -46,8 +46,9 @@ public class StockController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id) throws Exception {
+    public String delete(@PathVariable long id) throws Exception {
         logger.info("delete method called");
         stockService.delete(id);
+        return "/redirect:/stock";
     }
 }
