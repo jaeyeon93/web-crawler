@@ -26,11 +26,12 @@ public class StockController {
         return "redirect:/stock";
     }
 
-//    @GetMapping("")
-//    public String list(Model model) {
-//        model.addAttribute("stock", stockService.findAll());
-//        return "/stock/showInfo";
-//    }
+    @PostMapping("/{stockName}")
+    public @ResponseBody Stock getInfoByName(@PathVariable String stockName) throws Exception {
+        logger.info("stockName on Controller : {}", stockName);
+        stockService.add(stockName);
+        return stockService.findByName(stockName);
+    }
 
     @GetMapping("")
     public @ResponseBody List<Stock> list(Model model) {
@@ -44,16 +45,10 @@ public class StockController {
         return "/stock/showInfo";
     }
 
-
-    @PutMapping("/{id}")
-    public void stockUpdate(@PathVariable long id, Model model) {
-        logger.info("update method called");
-//        stockService.update(id);
-    }
-
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id) throws Exception {
+    public String delete(@PathVariable long id) throws Exception {
         logger.info("delete method called");
         stockService.delete(id);
+        return "/redirect:/stock";
     }
 }

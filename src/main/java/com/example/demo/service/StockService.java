@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -26,16 +27,28 @@ public class StockService {
         return stockRepository.findOne(id);
     }
 
-//    public List<Stock> add(String stockName) throws Exception {
-//        logger.info("add method called : {}", stockName);
-//        Research research = new Research(stockName);
-//        return stockRepository.save(research.make());
-//    }
+    public Stock findByName(String stockName) {
+        logger.info("stockName on Service : {}", stockName);
+        return stockRepository.findByName(stockName);
+    }
 
     public Stock add(String stockName) throws Exception {
-        logger.info("add method called : {}", stockName);
         Research research = new Research(stockName);
+        if (checkMakingStock(stockName)) {
+            logger.info("db에 존재함");
+            Stock stock = research.update(stockRepository.findByName(stockName.toUpperCase()));
+            return stockRepository.save(stock);
+        }
+        logger.info("db에 존재안하거나 날짜차이가 안됨");
         return stockRepository.save(research.make());
+    }
+
+    public boolean checkMakingStock(String stockName) {
+        Stock stock = stockRepository.findByName(stockName.toUpperCase());
+        if (stock != null && stock.getDiffday() < 15)
+            return true;
+        logger.info("stockName : {}", stockName);
+        return false;
     }
 
     @Transactional
@@ -43,5 +56,4 @@ public class StockService {
         logger.info("delete method called {}", id);
         stockRepository.delete(id);
     }
-
 }

@@ -25,27 +25,13 @@ public class ApiStockController {
     @Resource(name = "stockService")
     private StockService stockService;
 
-//    @PostMapping("")
-//    public ResponseEntity<Stock> create(@Valid @RequestBody String stockName) throws Exception {
-//        stock = stockService.add(stockName);
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setLocation(URI.create("/api/stock/" + stock.getId()));
-//        return new ResponseEntity<Stock>(headers, HttpStatus.CREATED);
-//    }
-
-//    @PostMapping("")
-//    public ResponseEntity<List<Stock>> create(@Valid @RequestBody String stockName) throws Exception {
-//        logger.info("restcontroller start");
-//        stocks = stockService.add(stockName);
-//        logger.info("stocks on api controller : {}", getStocks());
-//        HttpHeaders headers = new HttpHeaders();
-//        for (Stock stock : stocks) {
-//            headers.setLocation(URI.create("/api/stock/" + stock.getId()));
-//            logger.info("path : {}", headers.getLocation().getPath());
-//            responseEntities.add(new ResponseEntity<Void>(headers, HttpStatus.CREATED));
-//        }
-//        return ResponseEntity<List<Stock>>(headers);
-//    }
+    @PostMapping("")
+    public ResponseEntity<Stock> create(@Valid @RequestBody String stockName) throws Exception {
+        stock = stockService.add(stockName);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create("/api/stock/" + stock.getId()));
+        return new ResponseEntity<Stock>(headers, HttpStatus.CREATED);
+    }
 
     @GetMapping("")
     public List<Stock> list() {
