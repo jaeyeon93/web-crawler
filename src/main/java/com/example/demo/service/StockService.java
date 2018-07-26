@@ -31,16 +31,10 @@ public class StockService {
         logger.info("stockName on Service : {}", stockName);
         return stockRepository.findByName(stockName);
     }
-
+    
     public Stock add(String stockName) throws Exception {
         Research research = new Research(stockName);
-        if (checkMakingStock(stockName)) {
-            logger.info("db에 존재함");
-            Stock stock = research.update(stockRepository.findByName(stockName.toUpperCase()));
-            return stockRepository.save(stock);
-        }
-        logger.info("db에 존재안하거나 날짜차이가 안됨");
-        return stockRepository.save(research.make());
+        return stockRepository.save(research.update(stockRepository.findByName(stockName.toUpperCase()), checkMakingStock(stockName)));
     }
 
     public boolean checkMakingStock(String stockName) {

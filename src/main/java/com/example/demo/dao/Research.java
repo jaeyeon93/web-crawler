@@ -28,6 +28,9 @@ public class Research {
     public static final Logger logger = LoggerFactory.getLogger(Research.class);
     private WebDriver driver;
     private String stockName;
+    private String price;
+    private String changeMoney;
+    private String changePercent;
 
     public Research() {}
 
@@ -50,29 +53,35 @@ public class Research {
         return detailUrl;
     }
 
-    public Stock make() {
-        // url 가져오기
-        logger.info("make method called");
+    public Stock update(Stock original, boolean check) {
         driver.get(search());
-        String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
-        String salesMoney = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[4]/td[9]")).getText();
-        String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
-        String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[9]")).getText();
-        String changeMoney = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[2]/span")).getText();
-        String changePercent = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[3]/span")).getText();
-        return new Stock(getStockName(), price, salesMoney, yearProfit, totalCost, changeMoney, changePercent, search());
-    }
-
-    public Stock update(Stock original) {
-        logger.info("update method called on research Object");
-        driver.get(search());
-        String price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
-        String changeMoney = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[2]/span")).getText();
-        String changePercent = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[3]/span")).getText();
-        logger.info("values {},,, {},,, {}", price, changeMoney, changePercent);
+        price = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[1]/em")).getText();
+        changeMoney = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[2]/span")).getText();
+        changePercent = driver.findElement(By.xpath("//*[@id=\"topWrap\"]/div[1]/ul[2]/li[3]/span")).getText();
+        if (!check)
+            return make();
         original.update(price, changeMoney, changePercent);
         logger.info("update info : {}", original.toString());
         return original;
+    }
+
+    public Stock make() {
+        String salesMoney = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[4]/td[9]")).getText();
+        String totalCost = driver.findElement(By.xpath("//*[@id=\"stockContent\"]/ul[2]/li[2]/dl[2]/dd")).getText();
+        String yearProfit = driver.findElement(By.xpath("//*[@id=\"performanceCorp\"]/table/tbody/tr[5]/td[9]")).getText();
+        return new Stock(getStockName(), getPrice(), salesMoney, yearProfit, totalCost, getChangeMoney(), getChangePercent(), search());
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public String getChangeMoney() {
+        return changeMoney;
+    }
+
+    public String getChangePercent() {
+        return changePercent;
     }
 
     public String getStockName() {
