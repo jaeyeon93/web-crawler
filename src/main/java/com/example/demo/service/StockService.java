@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -31,7 +30,7 @@ public class StockService {
         logger.info("stockName on Service : {}", stockName);
         return stockRepository.findByName(stockName);
     }
-    
+
     public Stock add(String stockName) throws Exception {
         Research research = new Research(stockName);
         return stockRepository.save(research.update(stockRepository.findByName(stockName.toUpperCase()), checkMakingStock(stockName)));

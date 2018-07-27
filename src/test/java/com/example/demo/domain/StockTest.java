@@ -44,13 +44,6 @@ public class StockTest {
     }
 
     @Test
-    public void makeToJson() throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonStock = mapper.writeValueAsString(stock);
-        System.out.println(jsonStock);
-    }
-
-    @Test
     public void timeTest() throws Exception {
         String format = "yyyyMMdd";;
         SimpleDateFormat sdf = new SimpleDateFormat(format);
