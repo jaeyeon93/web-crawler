@@ -19,17 +19,22 @@ public class WholeInfoTest {
     }
 
     @Test
-    public void 전체정보페이지출력() {
-        wholeInfo.getDoc().body().toString();
-        String title = wholeInfo.getDoc().title();
-        logger.info("title은 : {}", title);
+    public void 페이지소스() {
+        wholeInfo.getBody();
     }
 
-    @Test
-    public void bodyInfo() {
-        Elements elements = wholeInfo.getDoc().getElementById("wrap").children();
-        for (Element element : elements) {
-            logger.info("Element는 : {}", element.text());
-        }
-    }
+//    @Test
+//    public void 전체정보페이지출력() {
+//        wholeInfo.getDoc().body().toString();
+//        String title = wholeInfo.getDoc().title();
+//        logger.info("title은 : {}", title);
+//    }
+//
+//    @Test
+//    public void bodyInfo() {
+//        Elements elements = wholeInfo.getDoc().getElementById("wrap").children();
+//        for (Element element : elements) {
+//            logger.info("Element는 : {}", element.text());
+//        }
+//    }
 }
