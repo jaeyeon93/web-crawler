@@ -1,5 +1,7 @@
 package com.example.demo.dao;
 
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -25,6 +27,9 @@ public class WholeInfoTest {
 
     @Test
     public void bodyInfo() {
-        System.out.println(wholeInfo.getDoc().body().getElementById("wrap"));
+        Elements elements = wholeInfo.getDoc().getElementById("wrap").children();
+        for (Element element : elements) {
+            logger.info("Element는 : {}", element.text());
+        }
     }
 }
