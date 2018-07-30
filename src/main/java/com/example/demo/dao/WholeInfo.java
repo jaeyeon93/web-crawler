@@ -31,6 +31,11 @@ public class WholeInfo {
         return body;
     }
 
+    public String getTest() {
+        String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[1]/div[1]/div[3]/dl[4]/dt")).getText();
+        return body;
+    }
+
     public String getWholeInfoUrl() {
         return wholeInfoUrl;
     }

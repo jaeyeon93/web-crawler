@@ -16,4 +16,10 @@ public class WholeInfoTest {
         String result = wholeInfo.getBody();
         logger.info("result : {}", result);
     }
+
+    @Test
+    public void getTest() {
+        String result = wholeInfo.getTest();
+        logger.info("result : {}", result);
+    }
 }
