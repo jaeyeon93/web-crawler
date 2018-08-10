@@ -5,10 +5,23 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class WholeInfoTest {
     private static final Logger logger =  LoggerFactory.getLogger(WholeInfoTest.class);
     private String wholeInfoUrl = "http://finance.daum.net/quote/allpanel.daum?stype=P&type=U";
     private WholeInfo wholeInfo;
+
+    @Before
+    public void setUp() {
+        wholeInfo = new WholeInfo();
+    }
+
+    @Test
+    public void contructor() {
+        wholeInfo.wholeContructor();
+    }
 
     @Test
     public void getBodyTest() {

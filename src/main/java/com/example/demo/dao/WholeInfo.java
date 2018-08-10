@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 public class WholeInfo {
     private static final Logger logger =  LoggerFactory.getLogger(WholeInfo.class);
@@ -24,6 +26,19 @@ public class WholeInfo {
         System.setProperty("webdriver.chrome.driver", "/Users/jaeyeonkim/Desktop/web-crawler/src/main/java/com/example/demo/chromedriver");
         driver = new ChromeDriver(options);
         driver.get(getWholeInfoUrl());
+    }
+
+    public List<String> contructor() {
+        String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[1]/div[1]/div[3]/dl[1]")).getText();
+        return Arrays.asList(body.split("\n"));
+    }
+
+    public void wholeContructor() {
+        for (int i = 1; i <= 40; i++) {
+            System.out.println("i is " + i);
+            String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[1]/div[1]/div[3]/dl[" + i + "]")).getText();
+            System.out.println(Arrays.asList(body.split("\n")));
+        }
     }
 
     public String getBody() {
