@@ -51,4 +51,10 @@ public class StockController {
         stockService.delete(id);
         return "/redirect:/stock";
     }
+
+    @GetMapping("/all")
+    public String allStock() throws Exception {
+        stockService.addAll();
+        return "redirect:/stock";
+    }
 }

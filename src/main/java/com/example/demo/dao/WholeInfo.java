@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import com.example.demo.domain.Stock;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.openqa.selenium.By;
@@ -10,13 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class WholeInfo {
     private static final Logger logger =  LoggerFactory.getLogger(WholeInfo.class);
     private String wholeInfoUrl = "http://finance.daum.net/quote/allpanel.daum?stype=P&type=U";
-    private Document doc;
     private WebDriver driver;
 
 
@@ -33,12 +34,26 @@ public class WholeInfo {
         return Arrays.asList(body.split("\n"));
     }
 
-    public void wholeContructor() {
+    public List<Stock> wholeContructor() {
+        List<Stock> stocks = new ArrayList<>();
         for (int i = 1; i <= 40; i++) {
-            System.out.println("i is " + i);
             String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[1]/div[1]/div[3]/dl[" + i + "]")).getText();
+            List<String> info = Arrays.asList(body.split("\n"));
+            stocks.add(new Stock(info.get(0), info.get(1), info.get(2), info.get(3)));
+        }
+        return stocks;
+    }
+
+    public void wholeFinace() {
+        for (int i = 1; i <= 135; i++) {
+            String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[1]/div[2]/div[3]/dl[" + i + "]")).getText();
             System.out.println(Arrays.asList(body.split("\n")));
         }
+    }
+
+    public Integer divCount() {
+       int result = driver.findElements(By.xpath("//*[@id=\"wrap\"]/div[1]/div[1]/div[3]")).size();
+        return result;
     }
 
     public String getBody() {

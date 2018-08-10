@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.Research;
+import com.example.demo.dao.WholeInfo;
 import com.example.demo.domain.Stock;
 import com.example.demo.domain.StockRepository;
 import org.slf4j.Logger;
@@ -48,5 +49,11 @@ public class StockService {
     public void delete(long id) throws Exception {
         logger.info("delete method called {}", id);
         stockRepository.delete(id);
+    }
+
+    @Transactional
+    public void addAll() throws Exception {
+        WholeInfo wholeInfo = new WholeInfo();
+        stockRepository.save(wholeInfo.wholeContructor());
     }
 }

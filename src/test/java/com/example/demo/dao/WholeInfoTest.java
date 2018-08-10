@@ -19,8 +19,19 @@ public class WholeInfoTest {
     }
 
     @Test
-    public void contructor() {
+    public void contructorAll() {
         wholeInfo.wholeContructor();
+    }
+
+    @Test
+    public void contructorOne() {
+        List<String> list = wholeInfo.contructor();
+        System.out.println(list);
+    }
+
+    @Test
+    public void wholeFinanceTest() {
+        wholeInfo.wholeFinace();
     }
 
     @Test
