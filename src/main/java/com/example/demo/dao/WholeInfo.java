@@ -45,11 +45,44 @@ public class WholeInfo {
         return stocks;
     }
 
-    public void wholeFinace() {
-        for (int i = 1; i <= 135; i++) {
+    public List<Stock> wholeFinace() {
+        List<Stock> stocks = new ArrayList<>();
+        for (int i = 1; i <= 143; i++) {
             String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[1]/div[2]/div[3]/dl[" + i + "]")).getText();
-            System.out.println(Arrays.asList(body.split("\n")));
+            List<String> info = Arrays.asList(body.split("\n"));
+            stocks.add(new Stock(info.get(0), info.get(1), info.get(2), info.get(3)));
         }
+        return stocks;
+    }
+
+    public List<Stock> wholeMechanical() {
+        List<Stock> stocks = new ArrayList<>();
+        for (int i = 1; i <= 36; i++) {
+            String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[1]/div[3]/div[3]/dl[" + i + "]")).getText();
+            List<String> info = Arrays.asList(body.split("\n"));
+            stocks.add(new Stock(info.get(0), info.get(1), info.get(2), info.get(3)));
+        }
+        return stocks;
+    }
+
+    public List<Stock> wholeMechanical2() {
+        List<Stock> stocks = new ArrayList<>();
+        for (int i = 1; i <= 6; i++) {
+            String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[2]/div[1]/div[3]/dl[" + i +"]")).getText();
+            List<String> info = Arrays.asList(body.split("\n"));
+            stocks.add(new Stock(info.get(0), info.get(1), info.get(2), info.get(3)));
+        }
+        return stocks;
+    }
+
+    public List<Stock> wholeNoneMetal() {
+        List<Stock> stocks = new ArrayList<>();
+        for (int i = 1; i <= 81; i++) {
+            String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[2]/div[3]/div[3]/dl[" + i +"]")).getText();
+            List<String> info = Arrays.asList(body.split("\n"));
+            stocks.add(new Stock(info.get(0), info.get(1), info.get(2), info.get(3)));
+        }
+        return stocks;
     }
 
     public Integer divCount() {
