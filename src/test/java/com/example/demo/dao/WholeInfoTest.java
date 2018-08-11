@@ -35,6 +35,11 @@ public class WholeInfoTest {
     }
 
     @Test
+    public void 태그갯수() {
+        System.out.println(wholeInfo.divCount());
+    }
+
+    @Test
     public void getBodyTest() {
         wholeInfo = new WholeInfo();
         String result = wholeInfo.getBody();

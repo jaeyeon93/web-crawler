@@ -5,6 +5,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.slf4j.Logger;
@@ -52,8 +53,8 @@ public class WholeInfo {
     }
 
     public Integer divCount() {
-       int result = driver.findElements(By.xpath("//*[@id=\"wrap\"]/div[1]/div[1]/div[3]")).size();
-        return result;
+       List<WebElement> list = driver.findElements(By.xpath("//*[@id=\"wrap\"]/div[1]/div[1]/div[3]"));
+        return list.size();
     }
 
     public String getBody() {
