@@ -68,7 +68,7 @@ public class WholeInfo {
     public List<Stock> wholeMechanical2() {
         List<Stock> stocks = new ArrayList<>();
         for (int i = 1; i <= 6; i++) {
-            String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[2]/div[1]/div[3]/dl[" + i +"]")).getText();
+            String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[2]/div[1]/div[3]/dl[" + i + "]")).getText();
             List<String> info = Arrays.asList(body.split("\n"));
             stocks.add(new Stock(info.get(0), info.get(1), info.get(2), info.get(3)));
         }
@@ -77,16 +77,33 @@ public class WholeInfo {
 
     public List<Stock> wholeNoneMetal() {
         List<Stock> stocks = new ArrayList<>();
-        for (int i = 1; i <= 81; i++) {
-            String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[2]/div[3]/div[3]/dl[" + i +"]")).getText();
+        for (int i = 1; i <= 31; i++) {
+            String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[2]/div[2]/div[3]/dl[" + i + "]")).getText();
             List<String> info = Arrays.asList(body.split("\n"));
             stocks.add(new Stock(info.get(0), info.get(1), info.get(2), info.get(3)));
         }
         return stocks;
     }
 
+    public List<Stock> wholeService() {
+        List<Stock> stocks = new ArrayList<>();
+        for (int i = 1; i <= 81; i++) {
+            String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[2]/div[3]/div[3]/dl[" + i + "]")).getText();
+            List<String> info = Arrays.asList(body.split("\n"));
+            stocks.add(new Stock(info.get(0), info.get(1), info.get(2), info.get(3)));
+        }
+        return stocks;
+    }
+
+    public Stock serviceOne() {
+        String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[2]/div[3]/div[3]/dl[49]")).getText();
+        logger.info("에스원 바디 : {}", body);
+        List<String> info = Arrays.asList(body.split("\n"));
+        return new Stock(info.get(0), info.get(1), info.get(2), info.get(3));
+    }
+
     public Integer divCount() {
-       List<WebElement> list = driver.findElements(By.xpath("//*[@id=\"wrap\"]/div[1]/div[1]/div[3]"));
+       List<WebElement> list = driver.findElements(By.xpath("//*[@id=\"wrap\"]/div[2]/div[3]/div[3]/dl[1]"));
         return list.size();
     }
 

@@ -57,4 +57,10 @@ public class StockController {
         stockService.addAll();
         return "redirect:/stock";
     }
+
+    @GetMapping("/serviceone")
+    public String serviceOne() throws Exception {
+        stockService.serviceOne();
+        return "redirect:/stock";
+    }
 }
