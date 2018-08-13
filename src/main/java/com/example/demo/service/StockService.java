@@ -64,12 +64,9 @@ public class StockService {
         long startTime = System.currentTimeMillis();
         System.out.println("시작시간 : " + startTime);
         WholeInfo wholeInfo = new WholeInfo();
-//        stockRepository.save(wholeInfo.wholeContructor());
-//        stockRepository.save(wholeInfo.wholeFinace());
-        stockRepository.save(wholeInfo.wholeMechanical());
-        stockRepository.save(wholeInfo.wholeMechanical2());
-        stockRepository.save(wholeInfo.wholeNoneMetal());
-        stockRepository.save(wholeInfo.wholeService());
+        stockRepository.save(wholeInfo.part1());
+        stockRepository.save(wholeInfo.part2());
+        stockRepository.save(wholeInfo.part3());
         long endTime = System.currentTimeMillis();
         System.out.println("종료시간 : " + endTime);
         System.out.println("총 걸린 시간 : " + (endTime - startTime));

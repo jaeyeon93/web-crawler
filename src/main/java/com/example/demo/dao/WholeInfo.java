@@ -18,88 +18,48 @@ import java.util.List;
 
 public class WholeInfo {
     private static final Logger logger =  LoggerFactory.getLogger(WholeInfo.class);
-    private String wholeInfoUrl = "http://finance.daum.net/quote/allpanel.daum?stype=P&type=U";
+    private String wholeInfoUrl = "http://finance.daum.net/quote/allpanel.daum?stype=P&type=S";
     private WebDriver driver;
 
 
     public WholeInfo() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
+//        options.addArguments("--headless");
         System.setProperty("webdriver.chrome.driver", "/Users/jaeyeonkim/Desktop/web-crawler/src/main/java/com/example/demo/chromedriver");
         driver = new ChromeDriver(options);
         driver.get(getWholeInfoUrl());
     }
 
-    public List<String> contructor() {
-        String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[1]/div[1]/div[3]/dl[1]")).getText();
-        return Arrays.asList(body.split("\n"));
-    }
-
-    public List<Stock> wholeContructor() {
+    public List<Stock> part1() {
         List<Stock> stocks = new ArrayList<>();
-        for (int i = 1; i <= 40; i++) {
-            String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[1]/div[1]/div[3]/dl[" + i + "]")).getText();
+        for (int i = 1; i < 507; i++) {
+            String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[1]/div/div[3]/dl[" + i + "]")).getText();
             List<String> info = Arrays.asList(body.split("\n"));
             stocks.add(new Stock(info.get(0), info.get(1), info.get(2), info.get(3)));
         }
         return stocks;
     }
 
-    public List<Stock> wholeFinace() {
+    public List<Stock> part2() {
         List<Stock> stocks = new ArrayList<>();
-        for (int i = 1; i <= 143; i++) {
-            String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[1]/div[2]/div[3]/dl[" + i + "]")).getText();
+        for (int i = 1; i < 507; i++) {
+            //*[@id="wrap"]/div[2]/div/div[3]/dl[1]
+            String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[2]/div/div[3]/dl[" + i + "]")).getText();
             List<String> info = Arrays.asList(body.split("\n"));
             stocks.add(new Stock(info.get(0), info.get(1), info.get(2), info.get(3)));
         }
         return stocks;
     }
 
-    public List<Stock> wholeMechanical() {
+    public List<Stock> part3() {
         List<Stock> stocks = new ArrayList<>();
-        for (int i = 1; i <= 36; i++) {
-            String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[1]/div[3]/div[3]/dl[" + i + "]")).getText();
+        for (int i = 1; i < 509; i++) {
+            //*[@id="wrap"]/div[3]/div/div[3]/dl[1]
+            String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[3]/div/div[3]/dl[" + i + "]")).getText();
             List<String> info = Arrays.asList(body.split("\n"));
             stocks.add(new Stock(info.get(0), info.get(1), info.get(2), info.get(3)));
         }
         return stocks;
-    }
-
-    public List<Stock> wholeMechanical2() {
-        List<Stock> stocks = new ArrayList<>();
-        for (int i = 1; i <= 6; i++) {
-            String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[2]/div[1]/div[3]/dl[" + i + "]")).getText();
-            List<String> info = Arrays.asList(body.split("\n"));
-            stocks.add(new Stock(info.get(0), info.get(1), info.get(2), info.get(3)));
-        }
-        return stocks;
-    }
-
-    public List<Stock> wholeNoneMetal() {
-        List<Stock> stocks = new ArrayList<>();
-        for (int i = 1; i <= 31; i++) {
-            String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[2]/div[2]/div[3]/dl[" + i + "]")).getText();
-            List<String> info = Arrays.asList(body.split("\n"));
-            stocks.add(new Stock(info.get(0), info.get(1), info.get(2), info.get(3)));
-        }
-        return stocks;
-    }
-
-    public List<Stock> wholeService() {
-        List<Stock> stocks = new ArrayList<>();
-        for (int i = 1; i <= 81; i++) {
-            String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[2]/div[3]/div[3]/dl[" + i + "]")).getText();
-            List<String> info = Arrays.asList(body.split("\n"));
-            stocks.add(new Stock(info.get(0), info.get(1), info.get(2), info.get(3)));
-        }
-        return stocks;
-    }
-
-    public Stock serviceOne() {
-        String body = driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[2]/div[3]/div[3]/dl[49]")).getText();
-        logger.info("에스원 바디 : {}", body);
-        List<String> info = Arrays.asList(body.split("\n"));
-        return new Stock(info.get(0), info.get(1), info.get(2), info.get(3));
     }
 
     public Integer divCount() {
