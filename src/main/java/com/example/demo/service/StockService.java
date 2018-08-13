@@ -1,10 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.Research;
-import com.example.demo.dao.WholeInfo;
+import com.example.demo.dao.kospiInfo;
 import com.example.demo.domain.Stock;
 import com.example.demo.domain.StockRepository;
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -54,19 +53,19 @@ public class StockService {
 
     @Transactional
     public void serviceOne() throws Exception {
-        logger.info("service one method called");
-        WholeInfo wholeInfo = new WholeInfo();
-        stockRepository.save(wholeInfo.serviceOne());
+        System.out.println("service one method called");
+        kospiInfo kospiInfo = new kospiInfo();
+        stockRepository.save(kospiInfo.oneInfo());
     }
 
     @Transactional
     public void addAll() throws Exception {
         long startTime = System.currentTimeMillis();
         System.out.println("시작시간 : " + startTime);
-        WholeInfo wholeInfo = new WholeInfo();
-        stockRepository.save(wholeInfo.part1());
-        stockRepository.save(wholeInfo.part2());
-        stockRepository.save(wholeInfo.part3());
+        kospiInfo kospiInfo = new kospiInfo();
+        stockRepository.save(kospiInfo.part1());
+        stockRepository.save(kospiInfo.part2());
+        stockRepository.save(kospiInfo.part3());
         long endTime = System.currentTimeMillis();
         System.out.println("종료시간 : " + endTime);
         System.out.println("총 걸린 시간 : " + (endTime - startTime));
